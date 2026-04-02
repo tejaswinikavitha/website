@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manifest Confirmed - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #1E293B;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 2rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-radius: 20px;
+            color: #64748B;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #E0F2FE;
+            color: #0284C7;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem;
+        }
+
+        .success-card {
+            background: white;
+            max-width: 600px;
+            width: 100%;
+            padding: 5rem 4rem;
+            border-radius: 48px;
+            text-align: center;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.03);
+        }
+
+        .check-circle {
+            width: 100px;
+            height: 100px;
+            background: #10B981;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 3rem;
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2);
+        }
+
+        .progress-bar-container {
+            height: 6px;
+            background: #F1F5F9;
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 3rem;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: #10B981;
+            width: 0%;
+            transition: width 5s linear;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i data-lucide="droplets" style="width: 36px; height: 36px; color: #0EA5E9;"></i>
+            <span style="font-size: 1.5rem; font-weight: 900; color: #0F172A;">HydroGuard</span>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="citizen-dashboard.html" class="nav-link">
+                <i data-lucide="layout-dashboard"></i> <span>Overview</span>
+            </a>
+            <a href="water-check.html" class="nav-link">
+                <i data-lucide="search"></i> <span>Check Water</span>
+            </a>
+            <a href="report-issue.html" class="nav-link active">
+                <i data-lucide="alert-circle"></i> <span>Report Issue</span>
+            </a>
+            <a href="sanitization-tips.html" class="nav-link">
+                <i data-lucide="shield-check"></i> <span>Health Tips</span>
+            </a>
+            <a href="citizen-profile.html" class="nav-link">
+                <i data-lucide="user"></i> <span>My Profile</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="success-card">
+            <div class="check-circle">
+                <i data-lucide="check" style="width: 50px; height: 50px;"></i>
+            </div>
+
+            <h2 style="font-size: 2.5rem; font-weight: 950; margin-bottom: 1rem; letter-spacing: -1.5px;">Submission
+                Secure</h2>
+            <p style="color: #64748B; font-weight: 600; line-height: 1.8; margin-bottom: 3.5rem; font-size: 1.1rem;">
+                The data manifest has been successfully synchronized with the central regional ledger. Local monitoring
+                units have been notified.
+            </p>
+
+            <div id="countdown"
+                style="font-weight: 850; color: #94A3B8; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">
+                REDIRECTING TO OVERVIEW IN 5S
+            </div>
+
+            <div class="progress-bar-container">
+                <div id="pBar" class="progress-bar-fill"></div>
+            </div>
+
+            <a href="citizen-dashboard.html"
+                style="background: #0F172A; color: white; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 1.25rem; border-radius: 20px; font-weight: 950; margin-top: 3rem;">
+                FORCE RETURN TO DASHBOARD
+            </a>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            let count = 5;
+            const pBar = document.getElementById('pBar');
+            const cd = document.getElementById('countdown');
+
+            pBar.style.width = '100%';
+
+            const interval = setInterval(() => {
+                count--;
+                cd.textContent = `REDIRECTING TO OVERVIEW IN ${count}S`;
+                if (count <= 0) {
+                    clearInterval(interval);
+                    location.href = 'citizen-dashboard.html';
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>

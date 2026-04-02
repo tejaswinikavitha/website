@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Report Analysis - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #1E293B;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 2rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-radius: 20px;
+            color: #64748B;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #F0FDFA;
+            color: #0D9488;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 300px;
+            padding: 5rem 6rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .report-hub {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #0D9488;
+            text-decoration: none;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        .btn-back:hover {
+            transform: translateX(-5px);
+        }
+
+        .report-card {
+            background: white;
+            border-radius: 48px;
+            padding: 4rem;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.03);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 850;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .status-new {
+            background: #DBEAFE;
+            color: #2563EB;
+        }
+
+        .status-viewed {
+            background: #F3E8FF;
+            color: #9333EA;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid #F1F5F9;
+        }
+
+        .meta-item {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .meta-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.25rem;
+        }
+
+        .label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .value {
+            font-weight: 800;
+            color: #1E293B;
+            font-size: 1.1rem;
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 850;
+            margin-top: 4px;
+        }
+
+        .risk-high {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .risk-moderate {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .risk-low {
+            background: #D1FAE5;
+            color: #059669;
+        }
+
+        .photo-container {
+            margin-top: 3.5rem;
+        }
+
+        .reported-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 32px;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+        }
+
+        .description-box {
+            margin-top: 3.5rem;
+            background: #F8FAFC;
+            padding: 2.5rem;
+            border-radius: 32px;
+            border: 1px solid #F1F5F9;
+            color: #475569;
+            line-height: 1.8;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .action-hub {
+            margin-top: 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .btn-action {
+            padding: 1.25rem;
+            border-radius: 20px;
+            font-weight: 900;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #0D9488;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #F1F5F9;
+            color: #64748B;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 4rem;">
+            <i data-lucide="shield-plus" style="width: 36px; height: 36px; color: #0D9488;"></i>
+            <span style="font-size: 1.5rem; font-weight: 900; color: #0F172A;">HydroGuard</span>
+        </div>
+
+        <nav style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1;">
+            <a href="healthworker-dashboard.html" class="nav-link">
+                <i data-lucide="layout-dashboard"></i> Dashboard
+            </a>
+            <a href="healthworker-notifications.html" class="nav-link active">
+                <i data-lucide="bell"></i> Notifications
+            </a>
+            <a href="add-patient-case.html" class="nav-link">
+                <i data-lucide="plus-circle"></i> Add Case
+            </a>
+            <a href="healthworker-profile.html" class="nav-link">
+                <i data-lucide="user"></i> Profile
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="report-hub" id="report-hub-content">
+            <a href="healthworker-notifications.html" class="btn-back">
+                <i data-lucide="arrow-left"></i> RETURN TO SURVEILLANCE FEED
+            </a>
+
+            <div class="report-card" id="mainReportCard">
+                <div id="statusBadge" class="status-badge status-new">NEW INCIDENT REPORT</div>
+
+                <h1 id="citizenName"
+                    style="font-size: 3.5rem; font-weight: 950; letter-spacing: -2px; margin: 0; line-height: 1;">Sarah
+                    Johnson</h1>
+
+                <div class="meta-grid">
+                    <div class="meta-item">
+                        <div class="meta-icon" style="background: #F0FDFA; color: #0D9488;"><i
+                                data-lucide="map-pin"></i></div>
+                        <div>
+                            <span class="label">Deployment Sector</span>
+                            <div class="value" id="locationText">Central District, Zone A</div>
+                        </div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-icon" style="background: #E0F2FE; color: #0EA5E9;"><i
+                                data-lucide="droplet"></i></div>
+                        <div>
+                            <span class="label">Clinical Source</span>
+                            <div class="value" id="sourceText">Community Well</div>
+                        </div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-icon" style="background: #FFFBEB; color: #D97706;"><i
+                                data-lucide="alert-triangle"></i></div>
+                        <div>
+                            <span class="label">Risk Priority</span>
+                            <div id="riskLevel" class="risk-badge risk-high">HIGH RISK</div>
+                        </div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-icon" style="background: #F8FAFC; color: #94A3B8;"><i
+                                data-lucide="calendar"></i></div>
+                        <div>
+                            <span class="label">Ingest Date</span>
+                            <div class="value" id="dateText">2026-03-11 09:15 AM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-container" id="photoArea">
+                    <span class="label">Visual Evidence</span>
+                    <img id="reportedPhoto" src="" class="reported-image" alt="No image attached">
+                </div>
+
+                <div class="description-box">
+                    <span class="label" style="margin-bottom: 1.5rem;">Incident Narrative</span>
+                    <div id="descriptionText">No detailed description has been provided for this incident. Local
+                        intervention is still recommended based on sensory profile.</div>
+                </div>
+
+                <div class="action-hub">
+                    <button class="btn-action btn-primary"
+                        onclick="hg.ui.showToast('Validation manifest synchronized', 'success')">VALIDATE
+                        INCIDENT</button>
+                    <button class="btn-action btn-secondary" onclick="window.print()">GENERATE PDF REPORT</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            lucide.createIcons();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const reportId = urlParams.get('id');
+
+            if (!reportId) {
+                window.location.href = 'healthworker-notifications.html';
+                return;
+            }
+
+            // Show loading state
+            document.getElementById('mainReportCard').innerHTML = `
+                <div style="text-align: center; padding: 10rem 0;">
+                    <i data-lucide="loader" class="animate-spin" style="width: 48px; height: 48px; color: #0D9488; margin-bottom: 2rem;"></i>
+                    <h3 style="font-weight: 900; color: #111827;">ACCESSING ENCRYPTED CLINICAL RECORD...</h3>
+                    <p style="color: #64748B; font-weight: 600;">Handshaking with surveillance node #${reportId}</p>
+                </div>
+            `;
+            lucide.createIcons();
+
+            const response = await hg.api.getReportById(reportId);
+
+            if (response && response.status === 'success' && response.report) {
+                const report = response.report;
+
+                // Mirror App Change: Mark as viewed
+                hg.api.updateReportStatus(reportId, 'viewed');
+
+                // Reconstruct the full UI with live data
+                document.getElementById('report-hub-content').innerHTML = `
+                    <div class="report-card">
+                        <div id="statusBadge" class="status-badge status-${(report.report_status || 'new').toLowerCase().replace(' ', '-')}">
+                            ${(report.report_status || 'NEW INCIDENT').toUpperCase()}
+                        </div>
+
+                        <h1 style="font-size: 3.5rem; font-weight: 950; letter-spacing: -2px; margin: 0; line-height: 1; color: #0F172A;">
+                            ${report.citizen_name}
+                        </h1>
+
+                        <div class="meta-grid">
+                            <div class="meta-item">
+                                <div class="meta-icon" style="background: #F0FDFA; color: #0D9488;"><i data-lucide="map-pin"></i></div>
+                                <div>
+                                    <span class="label">Deployment Sector</span>
+                                    <div class="value">${report.location}</div>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-icon" style="background: #E0F2FE; color: #0EA5E9;"><i data-lucide="droplet"></i></div>
+                                <div>
+                                    <span class="label">Infrastructure Profile</span>
+                                    <div class="value">${report.water_source || 'Unknown Source'}</div>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-icon" style="background: #F8FAFC; color: #94A3B8;"><i data-lucide="alert-octagon"></i></div>
+                                <div>
+                                    <span class="label">Incident Type</span>
+                                    <div class="value">${report.incident_type || 'General Issue'}</div>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-icon" style="background: #FFFBEB; color: #D97706;"><i data-lucide="alert-triangle"></i></div>
+                                <div>
+                                    <span class="label">Risk Priority</span>
+                                    <div class="risk-badge risk-${(report.risk_level || 'Low').toLowerCase()}">
+                                        ${(report.risk_level || 'LOW').toUpperCase()} RISK
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="meta-item">
+                                    <div class="meta-icon" style="background: #F8FAFC; color: #94A3B8;"><i data-lucide="calendar"></i></div>
+                                    <div>
+                                        <span class="label">Ingest Date</span>
+                                        <div class="value">${(() => {
+                        if (!report.report_date) return 'Not Available';
+                        const d = new Date(report.report_date);
+                        // Fallback for strings that get misinterpreted as UTC
+                        if (typeof report.report_date === 'string' && report.report_date.includes('GMT')) {
+                            return new Date(report.report_date.replace(' GMT', '')).toLocaleString();
+                        }
+                        return d.toLocaleString();
+                    })()}</div>
+                                    </div>
+                                </div>
+                        </div>
+
+                        ${(() => {
+                        let photo = report.photo_path || report.photo_url;
+                        if (photo && photo !== 'image.jpg') {
+                            // Strip any accidental whitespace/newlines
+                            photo = photo.trim().replace(/\s/g, "");
+                            const isBase64 = photo.startsWith('/9j/') || photo.startsWith('iVBORw') || photo.length > 500;
+                            const src = isBase64 ? `data:image/jpeg;base64,${photo}` : `${API_BASE_URL}/uploads/${photo}`;
+                            const finalSrc = isBase64 && (photo.startsWith('iVBORw') || photo.startsWith('IVBORW')) ? `data:image/png;base64,${photo}` : src;
+                            return `
+                                    <div class="photo-container">
+                                        <span class="label" style="margin-bottom: 2rem;">Visual Evidence</span>
+                                        <img src="${finalSrc}" class="reported-image" alt="Evidence" onerror="this.parentElement.innerHTML='<div style=\'text-align:center; padding:2rem; background:#F8FAFC; border:1px dashed #CBD5E1;\'><i data-lucide=\'image-off\' style=\'color:#94A3B8;\'></i><p style=\'color:#64748B;\'>Evidence image lost or corrupted.</p></div>'">
+                                    </div>
+                                `;
+                        } else {
+                            return `
+                                    <div class="description-box" style="background: #F8FAFC; border: 2px dashed #E2E8F0; text-align: center; padding: 4rem;">
+                                        <i data-lucide="image-off" style="width: 48px; height: 48px; color: #94A3B8; margin-bottom: 1rem;"></i>
+                                        <p style="color: #64748B; font-weight: 700;">No photographic evidence attached to this report.</p>
+                                    </div>
+                                `;
+                        }
+                    })()}
+
+                        <div class="description-box">
+                            <span class="label" style="margin-bottom: 1.5rem;">Clinical Incident Narrative</span>
+                            <div style="font-size: 1.1rem; color: #334155;">${report.description || 'No detailed clinical context provided.'}</div>
+                        </div>
+                    </div>
+                `;
+                lucide.createIcons();
+            } else {
+                document.getElementById('report-hub-content').innerHTML = `
+                    <div style="background: white; padding: 8rem; border-radius: 48px; text-align: center; border: 1px solid #FCA5A5;">
+                        <i data-lucide="shield-alert" style="width: 64px; height: 64px; color: #EF4444; margin-bottom: 2rem;"></i>
+                        <h2 style="font-weight: 950; color: #1E293B;">Access Denied / Index Error</h2>
+                        <p style="color: #64748B; font-weight: 600; font-size: 1.2rem;">The requested clinical report (ID: ${reportId}) does not exist in the centralized surveillance grid.</p>
+                        <a href="healthworker-notifications.html" class="btn-back" style="margin-top: 3rem;">RETURN TO SURVEILLANCE FEED</a>
+                    </div>
+                `;
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+
+</html>

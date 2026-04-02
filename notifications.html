@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Alerts - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #1E293B;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1.5rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding: 0 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            border-radius: 16px;
+            color: #94A3B8;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(37, 99, 235, 0.15);
+            color: #38BDF8;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 4rem 6rem;
+        }
+
+        .notif-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #E2E8F0;
+            display: flex;
+            gap: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        }
+
+        .notif-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+            border-color: #38BDF8;
+        }
+
+        .alert-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i data-lucide="droplets" style="width: 40px; height: 40px; color: #38BDF8;"></i>
+            <span style="font-size: 1.75rem; font-weight: 900; letter-spacing: -1px; color: white;">HydroGuard</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="healthworker-dashboard.html" class="nav-item">
+                <i data-lucide="layout-dashboard"></i> Overview
+            </a>
+            <a href="new-case.html" class="nav-item">
+                <i data-lucide="user-plus"></i> Add Patient Case
+            </a>
+            <a href="notifications.html" class="nav-item active">
+                <i data-lucide="bell"></i> Notifications
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i data-lucide="user"></i> Profile
+            </a>
+        </nav>
+        <a href="index.html" class="nav-item" style="margin-top: auto; color: #F87171;">
+            <i data-lucide="log-out"></i> Logout
+        </a>
+    </aside>
+
+    <main class="main-content">
+        <header style="margin-bottom: 4rem;">
+            <h1 style="font-size: 3rem; font-weight: 950; margin: 0; letter-spacing: -1.5px;">Citizen Submissions</h1>
+            <p style="color: #64748B; font-weight: 600; margin-top: 10px; font-size: 1.1rem;">Monitor and respond to
+                resource failure reports from your assigned ward.</p>
+        </header>
+
+        <div style="max-width: 1000px;" id="notificationsList">
+            <!-- Dynamically populated or static placeholders -->
+            <div class="notif-card" style="border-left: 6px solid #F59E0B;">
+                <div class="alert-icon" style="background: #FFF7ED; color: #F59E0B;">
+                    <i data-lucide="alert-triangle"></i>
+                </div>
+                <div style="flex: 1;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                        <h4 style="font-weight: 900; font-size: 1.25rem; margin: 0;">Citizen Report: Discolored Water
+                        </h4>
+                        <span style="font-size: 0.75rem; font-weight: 800; color: #94A3B8;">15 MIN AGO</span>
+                    </div>
+                    <p style="color: #64748B; line-height: 1.7; font-weight: 600; margin-bottom: 1rem;">Submitted by
+                        Mude Sai Tejaswini (Guntur East). User reports brown sediment in tap water supply since morning
+                        hours.</p>
+                    <div style="display: flex; gap: 10px;">
+                        <span
+                            style="background: #F1F5F9; color: #475569; padding: 4px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 800;">PENDING
+                            FIELD SCAN</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notif-card" style="border-left: 6px solid #EF4444;">
+                <div class="alert-icon" style="background: #FEE2E2; color: #EF4444;">
+                    <i data-lucide="zap"></i>
+                </div>
+                <div style="flex: 1;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                        <h4 style="font-weight: 900; font-size: 1.25rem; margin: 0;">Citizen Report: Sewage Leak</h4>
+                        <span style="font-size: 0.75rem; font-weight: 800; color: #94A3B8;">2 HOURS AGO</span>
+                    </div>
+                    <p style="color: #64748B; line-height: 1.7; font-weight: 600; margin-bottom: 1rem;">Multiple reports
+                        from Block-A housing. Surface runoff contaminated near primary well source.</p>
+                    <div style="display: flex; gap: 10px;">
+                        <span
+                            style="background: #FEF2F2; color: #991B1B; padding: 4px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 800;">URGENT
+                            PRIORITY</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = hg.session.get();
+            const list = document.getElementById('notificationsList');
+
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Get reports and filter by district
+            const reports = JSON.parse(localStorage.getItem('hg_citizen_reports') || '[]');
+            const myDistrictReports = reports.filter(r => r.location === user.location);
+
+            if (myDistrictReports.length === 0) {
+                list.innerHTML = `
+                    <div style="text-align: center; padding: 4rem;">
+                        <i data-lucide="bell-off" style="width: 64px; height: 64px; color: #CBD5E1; margin-bottom: 2rem;"></i>
+                        <h3 style="color: #64748B;">No reports in ${user.location} area</h3>
+                    </div>
+                `;
+            } else {
+                list.innerHTML = myDistrictReports.map(report => `
+                    <div class="notif-card" style="border-left: 6px solid ${getPriorityColor(report.issue)};">
+                        <div class="alert-icon" style="background: #F8FAFC; color: ${getPriorityColor(report.issue)};">
+                            <i data-lucide="${getIssueIcon(report.issue)}"></i>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h4 style="font-weight: 900; font-size: 1.25rem; margin: 0;">${report.issue}: ${report.source}</h4>
+                                <span style="font-size: 0.75rem; font-weight: 800; color: #94A3B8;">${getTimeAgo(report.timestamp)}</span>
+                            </div>
+                            <p style="color: #64748B; line-height: 1.7; font-weight: 600; margin-bottom: 1rem;">
+                                Submitted by ${report.userName} in **${report.location}**. <br/>
+                                <span style="font-style: italic;">"${report.description}"</span>
+                            </p>
+                            <div style="display: flex; gap: 10px;">
+                                <span style="background: #F1F5F9; color: #475569; padding: 4px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 800;">${report.status.toUpperCase()}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            lucide.createIcons();
+        });
+
+        function getPriorityColor(issue) {
+            if (issue.includes('Leak') || issue.includes('No Water')) return '#EF4444'; // Red
+            if (issue.includes('Discolored') || issue.includes('Smell')) return '#F59E0B'; // Orange
+            return '#38BDF8'; // Blue
+        }
+
+        function getIssueIcon(issue) {
+            if (issue.includes('Leak')) return 'zap';
+            if (issue.includes('Water')) return 'droplets';
+            return 'alert-triangle';
+        }
+
+        function getTimeAgo(timestamp) {
+            const diff = (new Date() - new Date(timestamp)) / 60000;
+            if (diff < 60) return Math.floor(diff) + ' MIN AGO';
+            if (diff < 1440) return Math.floor(diff / 60) + ' HOURS AGO';
+            return Math.floor(diff / 1440) + ' DAYS AGO';
+        }
+    </script>
+</body>
+
+</html>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocol Finalized - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+        }
+
+        .success-node {
+            text-align: center;
+            background: white;
+            border-radius: 50px;
+            padding: 6rem;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.05);
+            max-width: 700px;
+            animation: nodeEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes nodeEntry {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .icon-vault {
+            width: 120px;
+            height: 120px;
+            border-radius: 40px;
+            background: #F0FDFA;
+            color: #0D9488;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 3rem;
+        }
+
+        .primary-btn {
+            background: #020617;
+            color: white;
+            border: none;
+            padding: 1.5rem 3rem;
+            border-radius: 20px;
+            font-weight: 950;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 1rem;
+        }
+
+        .primary-btn:hover {
+            background: #0F172A;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="success-node">
+        <div class="icon-vault">
+            <i data-lucide="shield-check" style="width: 60px; height: 60px;"></i>
+        </div>
+        <h1 style="font-size: 3.5rem; font-weight: 950; letter-spacing: -3px; margin: 0; line-height: 1;">Protocol
+            Finalized</h1>
+        <p style="color: #64748B; font-weight: 600; font-size: 1.25rem; margin: 1.5rem 0 3rem; line-height: 1.6;">Your
+            clinical record has been encrypted and synced with the District Epidemiological Console.</p>
+
+        <button class="primary-btn" onclick="window.location.href='healthworker-dashboard.html'">
+            RETURN TO COMMAND CENTER <i data-lucide="arrow-right"></i>
+        </button>
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

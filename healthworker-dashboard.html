@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Analytics Console - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #1E293B;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 2rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-radius: 20px;
+            color: #64748B;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #F0FDFA;
+            color: #0D9488;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 300px;
+            padding: 5rem 6rem;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .status-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 32px;
+            border: 1px solid #F1F5F9;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.02);
+        }
+
+        .status-card h4 {
+            font-size: 0.8rem;
+            font-weight: 850;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .status-card .count {
+            font-size: 3rem;
+            font-weight: 950;
+            color: #1E293B;
+            letter-spacing: -2px;
+        }
+
+        .action-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 40px;
+            border: 1px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.03);
+        }
+
+        .action-card:hover {
+            transform: translateY(-8px);
+            border-color: #0D9488;
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 24px;
+            background: #F0FDFA;
+            color: #0D9488;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 4rem;">
+            <i data-lucide="shield-plus" style="width: 36px; height: 36px; color: #0D9488;"></i>
+            <span style="font-size: 1.5rem; font-weight: 900; color: #0F172A;">HydroGuard</span>
+        </div>
+
+        <nav style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1;">
+            <a href="healthworker-dashboard.html" class="nav-link active">
+                <i data-lucide="layout-dashboard"></i> Dashboard
+            </a>
+            <a href="healthworker-notifications.html" class="nav-link">
+                <i data-lucide="bell"></i> Notifications
+            </a>
+            <a href="add-patient-case.html" class="nav-link">
+                <i data-lucide="plus-circle"></i> Add Case
+            </a>
+            <a href="healthworker-profile.html" class="nav-link">
+                <i data-lucide="user"></i> Profile
+            </a>
+        </nav>
+
+        <a href="#" class="nav-link" id="sidebarLogout" style="margin-top: auto; color: #EF4444;">
+            <i data-lucide="log-out"></i> Logout
+        </a>
+    </aside>
+
+    <script>
+        document.getElementById('sidebarLogout')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            hg.session.logout();
+        });
+    </script>
+
+    <main class="main-content">
+        <header style="margin-bottom: 5rem;">
+            <p
+                style="color: #0D9488; font-weight: 850; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">
+                March 20, 2024 • Clinical Shift</p>
+            <h1 id="workerWelcome"
+                style="font-size: 2.5rem; font-weight: 900; letter-spacing: -1.5px; margin: 0; line-height: 1.2; color: #0F172A;">
+                Welcome Back,<br>Specialist</h1>
+            <p style="color: #64748B; font-size: 1.1rem; font-weight: 600; margin-top: 1rem;">Clinical Surveillance &
+                Analytics Panel</p>
+        </header>
+
+        <div class="status-grid">
+            <div class="status-card">
+                <h4>New Reports</h4>
+                <div class="count" id="countNew">0</div>
+            </div>
+            <div class="status-card" style="border-bottom: 4px solid #EF4444;">
+                <h4 style="color: #EF4444;">High Risk</h4>
+                <div class="count" id="countRisk">0</div>
+            </div>
+            <div class="status-card">
+                <h4>Pending</h4>
+                <div class="count" id="countPending">0</div>
+            </div>
+            <div class="status-card">
+                <h4>Resolved</h4>
+                <div class="count" id="countResolved">0</div>
+            </div>
+        </div>
+
+        <a href="add-patient-case.html" class="action-card">
+            <div class="icon-circle"><i data-lucide="plus-circle"></i></div>
+            <div style="flex: 1;">
+                <h3 style="font-size: 1.75rem; font-weight: 900; margin: 0; color: #1E293B;">Add Clinical Case</h3>
+                <p style="color: #64748B; font-weight: 600; margin-top: 5px; font-size: 1.05rem;">Record a new medical
+                    encounter for regional tracking.</p>
+            </div>
+            <i data-lucide="chevron-right" style="color: #CBD5E1;"></i>
+        </a>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            const user = hg.session.get();
+            if (user && user.name) {
+                document.getElementById('workerWelcome').innerHTML = `Welcome Back,<br>${user.name}`;
+            }
+
+            // Sync with backend reports
+            hg.api.getNotifications(user ? user.id : null).then(response => {
+                if (response && response.status === 'success' && response.reports) {
+                    const reports = response.reports;
+                    const newCount = reports.filter(r => r.status === 'new').length;
+                    const riskCount = reports.filter(r => r.risk_level === 'high').length;
+
+                    document.getElementById('countNew').textContent = newCount;
+                    document.getElementById('countRisk').textContent = riskCount;
+                    document.getElementById('countPending').textContent = reports.filter(r => r.status === 'viewed').length;
+                    document.getElementById('countResolved').textContent = reports.filter(r => r.status === 'resolved').length;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

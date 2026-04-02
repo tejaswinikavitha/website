@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HydroGuard - Access Gateway</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .bg-blobs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(80px);
+            opacity: 0.4;
+        }
+
+        .blob-1 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #BBF7D0;
+            top: -200px;
+            left: -100px;
+            border-radius: 50%;
+        }
+
+        .blob-2 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: #E0F2FE;
+            bottom: -200px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .selection-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .selection-card-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            width: 100%;
+            animation: cards-entry 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes cards-entry {
+            0% {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .role-card {
+            background: white;
+            border-radius: 40px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            border: 1px solid #E2E8F0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .role-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 40px 80px rgba(15, 23, 42, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .role-card .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            transition: transform 0.4s ease;
+        }
+
+        .role-card:hover .icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .role-card.citizen .icon-wrapper {
+            background: #E0F2FE;
+            color: #0369A1;
+        }
+
+        .role-card.healthworker .icon-wrapper {
+            background: #F0FDF4;
+            color: #166534;
+        }
+
+        .role-card.admin .icon-wrapper {
+            background: #F5F3FF;
+            color: #5B21B6;
+        }
+
+        .role-card h2 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .role-card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            flex: 1;
+        }
+
+        .role-btn {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: block;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 5;
+        }
+
+        .citizen .role-btn {
+            background: #0369A1;
+            color: white;
+        }
+
+        .healthworker .role-btn {
+            background: #166534;
+            color: white;
+        }
+
+        .admin .role-btn {
+            background: #5B21B6;
+            color: white;
+        }
+
+        .role-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .role-card:hover::after {
+            opacity: 0.1;
+        }
+
+        header {
+            padding: 3rem 2rem 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        header p {
+            color: var(--text-gray);
+            font-size: 1.15rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 992px) {
+            .selection-card-group {
+                grid-template-columns: 1fr;
+                max-width: 450px;
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-blobs">
+        <div class="blob-1"></div>
+        <div class="blob-2"></div>
+    </div>
+
+    <nav class="navbar"
+        style="border-bottom: 1px solid rgba(0,0,0,0.05); background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);">
+        <div style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;"
+            onclick="location.href='index.html'">
+            <i data-lucide="droplets" class="text-primary" style="width: 32px; height: 32px;"></i>
+            <span style="font-size: 1.5rem; font-weight: 700; color: var(--secondary-color);">HydroGuard</span>
+        </div>
+        <div style="display: flex; gap: 2rem;">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Security Hub</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Select Your Role</h1>
+        <p>Choose your entry point into the HydroGuard monitoring network.</p>
+    </header>
+
+    <div class="selection-container">
+        <div class="selection-card-group">
+            <!-- Citizen -->
+            <a href="citizen-login.html" class="role-card citizen">
+                <div class="icon-wrapper">
+                    <i data-lucide="user" style="width: 36px; height: 36px;"></i>
+                </div>
+                <h2>Citizen</h2>
+                <p>Public health access, water status monitoring, and incident reporting for residents.</p>
+                <div class="role-btn">Enter Portal</div>
+            </a>
+
+            <!-- Health Worker -->
+            <a href="healthworker-login.html" class="role-card healthworker">
+                <div class="icon-wrapper">
+                    <i data-lucide="stethoscope" style="width: 36px; height: 36px;"></i>
+                </div>
+                <h2>Health Worker</h2>
+                <p>Epidemiological management, patient registration, and field quality tracking.</p>
+                <div class="role-btn">Enter Portal</div>
+            </a>
+
+            <!-- Admin -->
+            <a href="admin-login.html" class="role-card admin">
+                <div class="icon-wrapper">
+                    <i data-lucide="shield-check" style="width: 36px; height: 36px;"></i>
+                </div>
+                <h2>Administrator</h2>
+                <p>Full system command, regional oversight, and infrastructure management node.</p>
+                <div class="role-btn">Enter Portal</div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

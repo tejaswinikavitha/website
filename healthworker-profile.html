@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Worker Profile - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #1E293B;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 2rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-radius: 20px;
+            color: #64748B;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #F0FDFA;
+            color: #0D9488;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 300px;
+            padding: 5rem 6rem;
+        }
+
+        .profile-portal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 40px;
+            padding: 3.5rem;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.03);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .info-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            background: #F0FDFA;
+            color: #0D9488;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .label {
+            font-size: 0.8rem;
+            font-weight: 850;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .value {
+            font-size: 1.15rem;
+            font-weight: 750;
+            color: #1E293B;
+            margin-top: 4px;
+        }
+
+        .setting-card {
+            background: white;
+            border-radius: 32px;
+            padding: 2rem;
+            border: 1px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .setting-card:hover {
+            border-color: #0D9488;
+            transform: translateY(-3px);
+        }
+
+        .toggle-switch {
+            width: 50px;
+            height: 26px;
+            background: #E2E8F0;
+            border-radius: 50px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: #0D9488;
+        }
+
+        .toggle-knob {
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            transition: all 0.3s;
+        }
+
+        .toggle-switch.active .toggle-knob {
+            left: 28px;
+        }
+
+        .btn-danger {
+            background: #FEF2F2;
+            color: #DC2626;
+            border: 1px solid #FEE2E2;
+            padding: 1.25rem;
+            border-radius: 20px;
+            font-weight: 900;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 2rem;
+        }
+
+        .btn-danger:hover {
+            background: #DC2626;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 4rem;">
+            <i data-lucide="shield-plus" style="width: 36px; height: 36px; color: #0D9488;"></i>
+            <span style="font-size: 1.5rem; font-weight: 900; color: #0F172A;">HydroGuard</span>
+        </div>
+
+        <nav style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1;">
+            <a href="healthworker-dashboard.html" class="nav-link">
+                <i data-lucide="layout-dashboard"></i> Dashboard
+            </a>
+            <a href="healthworker-notifications.html" class="nav-link">
+                <i data-lucide="bell"></i> Notifications
+            </a>
+            <a href="add-patient-case.html" class="nav-link">
+                <i data-lucide="plus-circle"></i> Add Case
+            </a>
+            <a href="healthworker-profile.html" class="nav-link active">
+                <i data-lucide="user"></i> Profile
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header style="margin-bottom: 5rem;">
+            <h1 style="font-size: 3.5rem; font-weight: 950; letter-spacing: -2px; margin: 0;">Identity Control</h1>
+            <p style="color: #64748B; font-weight: 600; font-size: 1.2rem; margin-top: 10px;">Clinical credentials and
+                regional preferences.</p>
+        </header>
+
+        <div class="profile-portal">
+            <div class="info-card">
+                <div class="info-item">
+                    <div class="info-icon"><i data-lucide="user"></i></div>
+                    <div>
+                        <div class="label">Legal Name</div>
+                        <div class="value" id="profName">Dr. Emily Rodriguez</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i data-lucide="briefcase"></i></div>
+                    <div>
+                        <div class="label">Designation</div>
+                        <div class="value">Field Health Worker</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i data-lucide="map-pin"></i></div>
+                    <div>
+                        <div class="label">Assigned District</div>
+                        <div class="value" id="profLocation">Central & East Districts</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i data-lucide="mail"></i></div>
+                    <div>
+                        <div class="label">Secured Email</div>
+                        <div class="value" id="profEmail">emily.rodriguez@hydroguard.org</div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4
+                    style="font-weight: 900; margin-bottom: 1.5rem; color: #64748B; font-size: 0.9rem; text-transform: uppercase;">
+                    Preferences</h4>
+
+                <div class="setting-card">
+                    <div class="info-icon" style="background: #E0F2FE; color: #3B82F6;"><i data-lucide="bell"></i></div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 850; font-size: 1.05rem;">Surveillance Alerts</div>
+                        <div style="font-size: 0.85rem; color: #64748B; font-weight: 600;">Receive citizen reports in
+                            real-time.</div>
+                    </div>
+                    <div class="toggle-switch active" onclick="this.classList.toggle('active')">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+
+                <div class="setting-card" onclick="window.location.href='change-password.html'">
+                    <div class="info-icon" style="background: #F1F5F9; color: #4B5563;"><i data-lucide="lock"></i></div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 850; font-size: 1.05rem;">Security Protocol</div>
+                        <div style="font-size: 0.85rem; color: #64748B; font-weight: 600;">Rotate access credentials.
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-right" style="color: #CBD5E1;"></i>
+                </div>
+
+                <button class="btn-danger" id="logoutBtn" style="margin-top: 3rem;">
+                    <i data-lucide="log-out"></i> TERMINATE CURRENT SESSION
+                </button>
+
+                <button class="btn-danger"
+                    style="background: transparent; border-color: transparent; font-size: 0.85rem; margin-top: 0.5rem; opacity: 0.6;">
+                    Delete Intelligence Node (Account)
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = hg.session.get();
+            if (user) {
+                document.getElementById('profName').textContent = user.name || 'Anonymous Specialist';
+                document.getElementById('profEmail').textContent = user.email || 'unset@hydroguard.org';
+                document.getElementById('profLocation').textContent = user.location || 'Unassigned District';
+            }
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            hg.session.logout();
+        });
+    </script>
+</body>
+
+</html>

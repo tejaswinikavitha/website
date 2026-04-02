@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HydroGuard - Initializing...</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #0F172A url('colorful_splash_bg_1774195450916.png') no-repeat center center;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            position: relative;
+        }
+
+        /* Gradient Overlay for Depth */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .splash-container {
+            text-align: center;
+            animation: fadeInScale 1.8s ease-out forwards;
+            opacity: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.85);
+                filter: blur(15px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .logo-sphere {
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin: 0 auto 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 60px rgba(56, 189, 248, 0.4), inset 0 0 30px rgba(255, 255, 255, 0.1);
+            animation: pulse-glow 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            from {
+                box-shadow: 0 0 40px rgba(56, 189, 248, 0.3);
+                transform: scale(1);
+            }
+
+            to {
+                box-shadow: 0 0 100px rgba(34, 211, 238, 0.6);
+                transform: scale(1.05);
+            }
+        }
+
+        .brand-name {
+            color: white;
+            font-size: 4.5rem;
+            font-weight: 900;
+            letter-spacing: 12px;
+            margin: 0;
+            text-transform: uppercase;
+            text-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            animation: slideUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .tagline {
+            color: #A5F3FC;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-top: 1.25rem;
+            animation: slideUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s forwards;
+            opacity: 0;
+            transform: translateY(40px);
+            text-transform: uppercase;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loader-wrapper {
+            width: 300px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 5rem auto 0;
+            border-radius: 99px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .loader-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #14B8A6 0%, #22D3EE 50%, #38BDF8 100%);
+            box-shadow: 0 0 25px rgba(34, 211, 238, 0.8);
+            animation: fill-loader 4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        }
+
+        @keyframes fill-loader {
+            0% {
+                width: 0;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="splash-container">
+        <div class="logo-sphere">
+            <i data-lucide="droplets" style="width: 100px; height: 100px; color: white;"></i>
+        </div>
+        <h1 class="brand-name">HYDROGUARD</h1>
+        <p class="tagline">Water Safety Monitoring System</p>
+
+        <div class="loader-wrapper">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = hg.session.getUser();
+
+            // Allow animation to play out
+            setTimeout(() => {
+                if (user) {
+                    if (user.role === 'admin') window.location.href = 'admin-dashboard.html';
+                    else if (user.role === 'healthworker') window.location.href = 'healthworker-dashboard.html';
+                    else window.location.href = 'citizen-dashboard.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+            }, 4500);
+        });
+    </script>
+</body>
+
+</html>

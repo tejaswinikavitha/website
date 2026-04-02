@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Records - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #1E293B;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 280px;
+            background: #1E293B;
+            display: flex;
+            flex-direction: column;
+            padding: 2.5rem 1.5rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            color: #38BDF8;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.15rem 1.5rem;
+            text-decoration: none;
+            color: #94A3B8;
+            border-radius: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active {
+            background: #38BDF8;
+            color: #082F49;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 3.5rem 5rem;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .header-title h1 {
+            font-size: 2.5rem;
+            font-weight: 950;
+            margin: 0;
+            letter-spacing: -1.5px;
+            color: #0F172A;
+        }
+
+        .header-title p {
+            color: #64748B;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 32px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+            border: 1px solid #E2E8F0;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 1.25rem 1.5rem;
+            color: #64748B;
+            font-weight: 800;
+            font-size: 0.75rem;
+            border-bottom: 2px solid #F8FAFC;
+            text-transform: uppercase;
+            background: #F8FAFC;
+        }
+
+        td {
+            padding: 1.5rem;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .search-area {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            background: white;
+            border: 1.5px solid #E2E8F0;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            font-weight: 600;
+            font-family: inherit;
+        }
+
+        .select-filter {
+            background: white;
+            border: 1.5px solid #E2E8F0;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            font-weight: 700;
+            font-family: inherit;
+        }
+
+        #caseModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-card {
+            background: white;
+            width: 700px;
+            padding: 3.5rem;
+            border-radius: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i data-lucide="shield-check" style="width: 36px; height: 36px;"></i>
+            <span style="font-size: 1.5rem; font-weight: 950; letter-spacing: -1px; color: white;">Admin Central</span>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="admin-dashboard.html" class="nav-link">
+                <i data-lucide="layout-grid"></i> Dashboard
+            </a>
+            <a href="view-cases.html" class="nav-link active">
+                <i data-lucide="activity"></i> Cases
+            </a>
+            <a href="summary-reports.html" class="nav-link">
+                <i data-lucide="pie-chart"></i> Reports
+            </a>
+            <a href="admin-profile.html" class="nav-link">
+                <i data-lucide="user"></i> Profile
+            </a>
+        </nav>
+
+        <a href="index.html" class="nav-link" style="margin-top: auto; color: #F87171;">
+            <i data-lucide="log-out"></i> Sign Out
+        </a>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-header">
+            <div class="header-title">
+                <h1>Active Clinical Cases</h1>
+                <p>Verify and manage epidemiological submissions from field units.</p>
+            </div>
+        </div>
+
+        <div class="search-area">
+            <div style="position: relative; flex: 1;">
+                <i data-lucide="search"
+                    style="position: absolute; left: 1.25rem; top: 1.1rem; width: 20px; color: #94A3B8;"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search accounts or locations..."
+                    style="padding-left: 3.5rem; width: 100%; box-sizing: border-box;">
+            </div>
+            <select id="severityFilter" class="select-filter">
+                <option value="All">All Tiers</option>
+                <option value="high">Severe</option>
+                <option value="moderate">Moderate</option>
+                <option value="low">Low</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient Entity</th>
+                        <th>Biodata</th>
+                        <th>Resource Context</th>
+                        <th>Status</th>
+                        <th style="text-align: right;">Operations</th>
+                    </tr>
+                </thead>
+                <tbody id="casesTable"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="caseModal">
+        <div class="modal-card" id="modalContent"></div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let allCases = [];
+        document.addEventListener('DOMContentLoaded', async () => {
+            lucide.createIcons();
+
+            // Search and Filter Listeners
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+            document.getElementById('severityFilter').addEventListener('change', async () => {
+                const severity = document.getElementById('severityFilter').value;
+                await loadCasesFromAPI(severity);
+            });
+
+            await loadCasesFromAPI();
+        });
+
+        async function loadCasesFromAPI(severity = 'All') {
+            const tbody = document.getElementById('casesTable');
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 3rem;"><i data-lucide="loader" class="animate-spin" style="color: #38BDF8;"></i></td></tr>';
+            lucide.createIcons();
+
+            const response = await hg.api.getAdminPatientCases(severity === 'All' ? '' : severity);
+            if (response && response.status === 'success' && response.cases) {
+                allCases = response.cases;
+                renderTable(allCases);
+            } else {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 3rem; color: #EF4444; font-weight: 700;">Critical Link failure: Unable to reach Clinical Registry.</td></tr>';
+            }
+        }
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const severityFilter = document.getElementById('severityFilter').value.toLowerCase();
+
+            const filtered = allCases.filter(c => {
+                const name = (c.patientName || '').toLowerCase();
+                const loc = (c.location || '').toLowerCase();
+                const sev = (c.severity || '').toLowerCase();
+
+                const matchesSearch = name.includes(searchTerm) || loc.includes(searchTerm);
+
+                let matchesSeverity = severityFilter === 'all';
+                if (!matchesSeverity) {
+                    if (severityFilter === 'high') matchesSeverity = (sev === 'high' || sev === 'severe');
+                    else if (severityFilter === 'moderate') matchesSeverity = (sev === 'moderate');
+                    else if (severityFilter === 'low') matchesSeverity = (sev === 'low' || sev === 'mild');
+                }
+
+                return matchesSearch && matchesSeverity;
+            });
+
+            renderTable(filtered);
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('casesTable');
+            tbody.innerHTML = '';
+
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 3rem; color: #94A3B8; font-weight: 600;">No cases matching your criteria found in the registry.</td></tr>';
+                return;
+            }
+
+            data.forEach(c => {
+                const tr = document.createElement('tr');
+                const dispSev = (c.severity || 'LOW').toUpperCase().replace('HIGH', 'SEVERE').replace('MILD', 'LOW');
+                tr.innerHTML = `
+                    <td><span style="font-weight: 900; color: #0F172A;">${c.patientName}</span></td>
+                    <td style="color: #64748B; font-weight: 600;">${c.age}Y • ${c.gender}</td>
+                    <td><span style="font-weight: 700; color: #475569;">${c.location}</span></td>
+                    <td><span style="background: ${getSeverityColor(c.severity || 'low').bg}; color: ${getSeverityColor(c.severity || 'low').text}; padding: 4px 12px; border-radius: 50px; font-size: 0.70rem; font-weight: 800;">${dispSev}</span></td>
+                    <td style="text-align: right;"><button onclick="showDetails(${c.caseId})" style="background: #E0F2FE; color: #0369A1; border: none; padding: 8px 16px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.75rem;">ANALYSIS REPORT &gt;</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function getSeverityColor(sev) {
+            const s = (sev || 'low').toLowerCase();
+            if (s === 'severe' || s === 'high' || s === 'critical') return { bg: '#FEE2E2', text: '#DC2626' };
+            if (s === 'moderate') return { bg: '#FEF3C7', text: '#D97706' };
+            return { bg: '#F0FDFA', text: '#0D9488' };
+        }
+
+        function showDetails(caseId) {
+            const caseData = allCases.find(c => c.caseId === caseId);
+            if (!caseData) return;
+
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 2.5rem;">
+                    <div>
+                        <h2 style="font-size: 2.5rem; font-weight: 950; margin: 0; letter-spacing: -1.5px;">${caseData.patientName}</h2>
+                        <p style="color: #64748B; font-weight: 700; margin-top: 5px;">Case File #${caseData.caseId} • Registry Record</p>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;">
+                    <div>
+                        <h4 style="font-size: 0.75rem; font-weight: 900; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem;">Clinical Profile</h4>
+                        <div style="background: #F8FAFC; padding: 1.5rem; border-radius: 24px; border: 1px solid #F1F5F9;">
+                            <p style="margin-bottom: 0.75rem; font-weight: 700;"><b>Symptoms:</b> ${caseData.symptoms.join(', ')}</p>
+                            <p style="margin-bottom: 0.75rem; font-weight: 700;"><b>Diagnosis:</b> ${caseData.diseaseType || 'TBD'}</p>
+                            <p style="margin:0; font-weight: 800; color: ${getSeverityColor(caseData.severity).text};"><b>Severity:</b> ${caseData.severity.toUpperCase()}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 0.75rem; font-weight: 900; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem;">Environmental Link</h4>
+                        ${caseData.waterSource ? `
+                            <div style="background: #F0FDFA; padding: 1.5rem; border-radius: 24px; border: 1px solid #CCFBF1;">
+                                <p style="margin-bottom: 0.75rem; font-weight: 700;"><b>Source Type:</b> ${caseData.waterType}</p>
+                                <p style="margin-bottom: 0.75rem; font-weight: 700;"><b>Origin:</b> ${caseData.waterSource}</p>
+                                <p style="margin-bottom: 0.75rem; font-weight: 700;"><b>Visual Appearance:</b> ${caseData.appearance}</p>
+                                <p style="margin:0; font-weight: 700;"><b>Treatment Method:</b> ${caseData.treatmentMethod || 'None Reported'}</p>
+                            </div>
+                        ` : `
+                            <div style="background: #F1F5F9; padding: 2rem; border-radius: 24px; text-align: center;">
+                                <i data-lucide="droplet-off" style="color: #94A3B8; width: 32px; margin-bottom: 0.5rem;"></i>
+                                <p style="color: #64748B; font-weight: 600; margin: 0;">No linked water source details recorded yet.</p>
+                            </div>
+                        `}
+                    </div>
+                </div>
+
+                <div style="margin-top: 3.5rem; display: flex; justify-content: center;">
+                    <button onclick="document.getElementById('caseModal').style.display='none'" style="width: 100%; padding: 1.25rem; border-radius: 16px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #1E293B; font-weight: 900; cursor: pointer; transition: all 0.3s; letter-spacing: 0.5px;">CLOSE CASE FILE</button>
+                </div>
+            `;
+            lucide.createIcons();
+            document.getElementById('caseModal').style.display = 'flex';
+        }
+        window.onclick = function (e) { if (e.target == document.getElementById('caseModal')) e.target.style.display = 'none'; }
+    </script>
+</body>
+
+</html>

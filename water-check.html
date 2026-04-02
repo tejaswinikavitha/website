@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Portal - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #1E293B;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 2rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-radius: 20px;
+            color: #64748B;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #E0F2FE;
+            color: #0284C7;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 300px;
+            padding: 5rem 6rem;
+        }
+
+        .diagnostic-card {
+            background: white;
+            border-radius: 40px;
+            padding: 5rem;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.03);
+            max-width: 1000px;
+        }
+
+        .styled-select,
+        .styled-textarea {
+            width: 100%;
+            padding: 1.25rem;
+            border-radius: 16px;
+            border: 2px solid #F1F5F9;
+            background: #F8FAFC;
+            font-family: inherit;
+            font-weight: 600;
+            color: #1E293B;
+            margin-bottom: 2.5rem;
+        }
+
+        .submit-btn {
+            background: #0EA5E9;
+            color: white;
+            border: none;
+            padding: 1.5rem;
+            border-radius: 20px;
+            font-weight: 950;
+            font-size: 1.1rem;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 4rem;">
+            <i data-lucide="droplets" style="width: 36px; height: 36px; color: #0EA5E9;"></i>
+            <span style="font-size: 1.5rem; font-weight: 900; color: #0F172A;">HydroGuard</span>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="citizen-dashboard.html" class="nav-link">
+                <i data-lucide="layout-dashboard"></i> <span>Overview</span>
+            </a>
+            <a href="water-check.html" class="nav-link active">
+                <i data-lucide="search"></i> <span>Check Water</span>
+            </a>
+            <a href="report-issue.html" class="nav-link">
+                <i data-lucide="alert-circle"></i> <span>Report Issue</span>
+            </a>
+            <a href="sanitization-tips.html" class="nav-link">
+                <i data-lucide="shield-check"></i> <span>Health Tips</span>
+            </a>
+            <a href="citizen-profile.html" class="nav-link">
+                <i data-lucide="user"></i> <span>My Profile</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header style="margin-bottom: 4rem;">
+            <h1 style="font-size: 3.5rem; font-weight: 950; letter-spacing: -2px; margin: 0;">Water Diagnostic</h1>
+            <p style="color: #64748B; font-weight: 600; font-size: 1.2rem; margin-top: 10px;">Sensory analysis and risk
+                assessment.</p>
+        </header>
+
+        <div class="diagnostic-card">
+            <form id="checkForm">
+                <h4
+                    style="font-size: 0.9rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #1E293B; margin-bottom: 1.5rem;">
+                    Source Origins</h4>
+                <select id="source" class="styled-select" required>
+                    <option value="">Select Origin...</option>
+                    <option value="Tap Water">Municipal Supply</option>
+                    <option value="Borewell">Private Borewell</option>
+                    <option value="Hand Pump">Hand Pump</option>
+                    <option value="Well">Open Well</option>
+                </select>
+
+                <h4
+                    style="font-size: 0.9rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #1E293B; margin-bottom: 1.5rem;">
+                    Sensory Profile</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <select id="appearance" class="styled-select" required>
+                        <option value="">Visual Clarity...</option>
+                        <option value="Clear">Totally Clear</option>
+                        <option value="Muddy">Muddy / Brown</option>
+                        <option value="Yellowish">Yellowish</option>
+                    </select>
+                    <select id="odor" class="styled-select" required>
+                        <option value="">Olfactory Analysis...</option>
+                        <option value="None">No Odor</option>
+                        <option value="Chlorine">Chemical Odor</option>
+                        <option value="Sewage">Sewage Smell</option>
+                    </select>
+                </div>
+
+                <h4
+                    style="font-size: 0.9rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #1E293B; margin-bottom: 1.5rem;">
+                    Health Context</h4>
+                <textarea id="symptoms" class="styled-textarea" rows="4"
+                    placeholder="Mention any health impacts noticed (e.g. skin irritation, stomach ache)..."></textarea>
+
+                <button type="submit" class="submit-btn" id="runBtn">RUN DIAGNOSTIC PROTOCOL</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+        document.getElementById('checkForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('runBtn');
+            btn.innerHTML = '<i data-lucide="loader" class="animate-spin"></i> ANALYZING SAMPLE...';
+            btn.disabled = true;
+            lucide.createIcons();
+            setTimeout(() => {
+                const risk = (document.getElementById('appearance').value !== 'Clear' || document.getElementById('odor').value !== 'None') ? 'High' : 'Low';
+                localStorage.setItem('hg_last_water_check', JSON.stringify({ risk, timestamp: new Date().toISOString() }));
+                window.location.href = 'water-status-result.html';
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>

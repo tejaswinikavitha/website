@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Command Center - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #0F172A;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 2rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 20px 0 50px rgba(0, 0, 0, 0.02);
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-radius: 20px;
+            color: #64748B;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #E0F2FE;
+            color: #0284C7;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 300px;
+            padding: 5rem 6rem;
+        }
+
+        .welcome-section {
+            margin-bottom: 5rem;
+        }
+
+        .welcome-section h1 {
+            font-size: 4rem;
+            font-weight: 950;
+            letter-spacing: -3px;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .welcome-section p {
+            color: #64748B;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 4rem 3rem;
+            border-radius: 48px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.02);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 0%;
+            background: rgba(14, 165, 233, 0.02);
+            transition: width 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #38BDF8;
+            box-shadow: 0 50px 100px rgba(14, 165, 233, 0.08);
+        }
+
+        .feature-card:hover::after {
+            width: 100%;
+        }
+
+        .icon-box {
+            width: 90px;
+            height: 90px;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.25rem;
+            flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover .icon-box {
+            transform: rotate(-5deg) scale(1.1);
+        }
+
+        .card-info h3 {
+            font-size: 1.75rem;
+            font-weight: 900;
+            margin: 0;
+            color: #1E293B;
+        }
+
+        .card-info p {
+            color: #64748B;
+            font-weight: 600;
+            margin-top: 5px;
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 1200px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i data-lucide="droplets" style="width: 36px; height: 36px; color: #0EA5E9;"></i>
+            <span style="font-size: 1.5rem; font-weight: 900; color: #0F172A;">HydroGuard</span>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="citizen-dashboard.html" class="nav-link active">
+                <i data-lucide="layout-dashboard"></i> Overview
+            </a>
+            <a href="water-check.html" class="nav-link">
+                <i data-lucide="search"></i> Check Water
+            </a>
+            <a href="report-issue.html" class="nav-link">
+                <i data-lucide="alert-circle"></i> Report Issue
+            </a>
+            <a href="sanitization-tips.html" class="nav-link">
+                <i data-lucide="shield-check"></i> Health Tips
+            </a>
+            <a href="citizen-profile.html" class="nav-link">
+                <i data-lucide="user"></i> My Profile
+            </a>
+        </nav>
+
+        <a href="index.html" class="nav-link" style="margin-top: auto; color: #EF4444;">
+            <i data-lucide="log-out"></i> Logout Session
+        </a>
+    </aside>
+
+    <main class="main-content">
+        <section class="welcome-section">
+            <p id="dateDisplay"
+                style="color: #0EA5E9; font-weight: 850; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">
+                March 20, 2024</p>
+            <h1 id="welcomeTitle">Welcome Back,<br>Sarah Johnson</h1>
+            <p>Access your primary water safety modules from the Citizen Command Console.</p>
+        </section>
+
+        <div class="feature-grid">
+            <a href="water-check.html" class="feature-card">
+                <div class="icon-box" style="background: #E0F2FE; color: #0EA5E9;"><i data-lucide="droplet"></i></div>
+                <div class="card-info">
+                    <h3>Check Water</h3>
+                    <p>Sensory micro-diagnostic probe.</p>
+                </div>
+            </a>
+
+            <a href="report-issue.html" class="feature-card">
+                <div class="icon-box" style="background: #ECFDF5; color: #10B981;"><i data-lucide="plus-circle"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Report Issue</h3>
+                    <p>Transmit regional incident data.</p>
+                </div>
+            </a>
+
+            <a href="sanitization-tips.html" class="feature-card">
+                <div class="icon-box" style="background: #FFF7ED; color: #F59E0B;"><i data-lucide="shield-check"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Sanitization Tips</h3>
+                    <p>Validated purity protocols.</p>
+                </div>
+            </a>
+
+            <a href="citizen-profile.html" class="feature-card">
+                <div class="icon-box" style="background: #F1F5F9; color: #475569;"><i data-lucide="user"></i></div>
+                <div class="card-info">
+                    <h3>Profile Portal</h3>
+                    <p>Manage identity & district data.</p>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            const user = hg.session.get();
+            if (user && user.name) {
+                document.getElementById('welcomeTitle').innerHTML = `Welcome Back,<br>${user.name}`;
+            }
+
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('dateDisplay').textContent = new Date().toLocaleDateString('en-US', options);
+        });
+    </script>
+</body>
+
+</html>

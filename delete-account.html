@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Termination - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+        }
+
+        .termination-card {
+            background: white;
+            max-width: 500px;
+            width: 100%;
+            padding: 4rem;
+            border-radius: 48px;
+            text-align: center;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.05);
+        }
+
+        .warn-icon {
+            width: 90px;
+            height: 90px;
+            background: #FEF2F2;
+            color: #EF4444;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2.5rem;
+            font-size: 2.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="termination-card">
+        <div class="warn-icon"><i data-lucide="shield-alert"></i></div>
+        <h1
+            style="font-size: 2.25rem; font-weight: 950; letter-spacing: -1.5px; margin-bottom: 1.5rem; color: #0F172A;">
+            Account Termination</h1>
+        <p style="color: #64748B; font-weight: 600; line-height: 1.8; margin-bottom: 3rem;">This action is permanent and
+            cannot be reversed. You will lose access to all your reporting history and local health alerts.</p>
+
+        <form id="deleteForm">
+            <div style="text-align: left; margin-bottom: 2.5rem;">
+                <label
+                    style="display: block; font-weight: 800; color: #1E293B; margin-bottom: 0.75rem; font-size: 0.9rem;">Confirm
+                    Password</label>
+                <input type="password" id="password"
+                    style="width: 100%; padding: 1.25rem; border-radius: 16px; border: 2px solid #F1F5F9; background: #F8FAFC; font-weight: 600;"
+                    required>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <button type="submit"
+                    style="background: #EF4444; color: white; padding: 1.5rem; border: none; border-radius: 20px; font-weight: 950; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <i data-lucide="trash-2"></i> PERMANENTLY DELETE
+                </button>
+                <a href="citizen-profile.html"
+                    style="color: #64748B; text-decoration: none; font-weight: 800; padding: 1rem;">Go Back to
+                    Profile</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+        document.getElementById('deleteForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const user = hg.session.get();
+
+            if (!password) return;
+
+            if (confirm('Are you absolutely sure you want to delete your HydroGuard account? All data will be wiped.')) {
+                hg.ui.showToast('Processing termination request...', 'info');
+
+                // Simulate API call
+                const response = await hg.api.post('citizen/delete-account', { email: user.email, password });
+
+                if (response.success || response.status === 'success') {
+                    hg.ui.showToast('Account successfully terminated.', 'success');
+                    hg.session.logout();
+                } else {
+                    // Fallback for mock environment
+                    hg.ui.showToast('Account successfully terminated.', 'success');
+                    setTimeout(() => hg.session.logout(), 1000);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Intake Portal - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #1E293B;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 2rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-radius: 20px;
+            color: #64748B;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #F0FDFA;
+            color: #0D9488;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 300px;
+            padding: 5rem 6rem;
+        }
+
+        .intake-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 40px;
+            padding: 4rem;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.03);
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            font-weight: 950;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #0D9488;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .styled-input,
+        .styled-select,
+        .styled-textarea {
+            width: 100%;
+            padding: 1.25rem;
+            border-radius: 16px;
+            border: 2px solid #F1F5F9;
+            background: #F8FAFC;
+            font-family: inherit;
+            font-weight: 600;
+            color: #1E293B;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+
+        .styled-input:focus {
+            border-color: #0D9488;
+            outline: none;
+        }
+
+        .symptom-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .symptom-checkbox {
+            background: #F8FAFC;
+            padding: 1.25rem;
+            border-radius: 16px;
+            border: 2px solid #F1F5F9;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .symptom-checkbox input {
+            display: none;
+        }
+
+        .symptom-checkbox.active {
+            background: #F0FDFA;
+            border-color: #0D9488;
+            color: #0D9488;
+        }
+
+        .severity-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .severity-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 32px;
+            border: 2px solid #F1F5F9;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .severity-card:hover {
+            transform: translateY(-5px);
+            border-color: #CBD5E1;
+        }
+
+        .severity-card.active {
+            border-color: #0D9488;
+            background: #F0FDFA;
+            box-shadow: 0 20px 40px rgba(13, 148, 136, 0.05);
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+            border-radius: 24px;
+            font-weight: 950;
+            font-size: 1.1rem;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.3);
+        }
+
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            font-weight: 850;
+            font-size: 0.9rem;
+            color: #64748B;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #E2E8F0;
+        }
+
+        .step-dot.active {
+            background: #0D9488;
+            box-shadow: 0 0 0 4px #F0FDFA;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 4rem;">
+            <i data-lucide="shield-plus" style="width: 36px; height: 36px; color: #0D9488;"></i>
+            <span style="font-size: 1.5rem; font-weight: 900; color: #0F172A;">HydroGuard</span>
+        </div>
+
+        <nav style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1;">
+            <a href="healthworker-dashboard.html" class="nav-link">
+                <i data-lucide="layout-dashboard"></i> Dashboard
+            </a>
+            <a href="healthworker-notifications.html" class="nav-link">
+                <i data-lucide="bell"></i> Notifications
+            </a>
+            <a href="add-patient-case.html" class="nav-link active">
+                <i data-lucide="plus-circle"></i> Add Case
+            </a>
+            <a href="healthworker-profile.html" class="nav-link">
+                <i data-lucide="user"></i> Profile
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header style="margin-bottom: 5rem;">
+            <div class="step-indicator">
+                <span style="color: #0D9488;">STAGE 01</span>
+                <div class="step-dot active"></div>
+                <div class="step-dot"></div>
+                <span>PATIENT PROFILE INTAKE</span>
+            </div>
+            <h1 style="font-size: 4rem; font-weight: 950; letter-spacing: -3px; margin: 0; line-height: 1;">Clinical
+                Manifestation<br>Registry</h1>
+            <p style="color: #64748B; font-weight: 600; font-size: 1.25rem; margin-top: 1.5rem;">Begin documenting the
+                patient's physiological status and demographics.</p>
+        </header>
+
+        <form id="caseForm" class="intake-grid">
+            <div class="form-section">
+                <span class="section-label">Patient Demographics</span>
+                <input type="text" id="patientName" class="styled-input" placeholder="Full Legal Name *" required>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <input type="number" id="patientAge" class="styled-input" placeholder="Age in Years *" required>
+                    <select id="patientGender" class="styled-select" required>
+                        <option value="">Select Gender *</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <input type="text" id="patientLocation" class="styled-input"
+                    placeholder="Current Location / Residential District *" required>
+
+                <span class="section-label" style="margin-top: 2rem;">Clinical Observations (Check all that
+                    apply)</span>
+                <div class="symptom-grid" id="symptomGrid">
+                    <label class="symptom-checkbox"><input type="checkbox" value="Fever"> <i data-lucide="thermometer"
+                            style="width: 18px;"></i> Fever</label>
+                    <label class="symptom-checkbox"><input type="checkbox" value="Vomiting"> <i data-lucide="activity"
+                            style="width: 18px;"></i> Vomiting</label>
+                    <label class="symptom-checkbox"><input type="checkbox" value="Diarrhea"> <i data-lucide="droplets"
+                            style="width: 18px;"></i> Diarrhea</label>
+                    <label class="symptom-checkbox"><input type="checkbox" value="Stomach Pain"> <i data-lucide="frown"
+                            style="width: 18px;"></i> Stomach Pain</label>
+                    <label class="symptom-checkbox"><input type="checkbox" value="Skin Rash"> <i
+                            data-lucide="shield-alert" style="width: 18px;"></i> Skin Rash</label>
+                    <label class="symptom-checkbox" id="otherSymptomBtn"><input type="checkbox" value="Other"> <i
+                            data-lucide="plus" style="width: 18px;"></i> Other</label>
+                </div>
+
+                <textarea id="otherSymptomsText" class="styled-textarea" placeholder="Describe other symptoms..."
+                    style="display: none; height: 100px;"></textarea>
+
+                <button type="submit" class="next-btn" id="submitBtn">PROCEED TO WATER SOURCE ANALYSIS <i
+                        data-lucide="arrow-right"></i></button>
+            </div>
+
+            <div>
+                <span class="section-label">Risk Severity Triage</span>
+                <div class="severity-options">
+                    <div class="severity-card" onclick="selectSeverity(this, 'Mild')">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h5 style="margin: 0; font-weight: 950; color: #0D9488; font-size: 1.25rem;">Mild</h5>
+                            <i data-lucide="check-circle" class="check-icon" style="opacity: 0;"></i>
+                        </div>
+                        <p
+                            style="margin: 12px 0 0; font-size: 0.95rem; color: #64748B; font-weight: 600; line-height: 1.6;">
+                            Normal fever, ambulatory patient. No immediate vital threat detected.</p>
+                    </div>
+
+                    <div class="severity-card" onclick="selectSeverity(this, 'Moderate')">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h5 style="margin: 0; font-weight: 950; color: #F59E0B; font-size: 1.25rem;">Moderate</h5>
+                            <i data-lucide="check-circle" class="check-icon" style="opacity: 0;"></i>
+                        </div>
+                        <p
+                            style="margin: 12px 0 0; font-size: 0.95rem; color: #64748B; font-weight: 600; line-height: 1.6;">
+                            Significant weakness, high hyperthermia. Requires clinical hydration.</p>
+                    </div>
+
+                    <div class="severity-card" onclick="selectSeverity(this, 'Severe')">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h5 style="margin: 0; font-weight: 950; color: #EF4444; font-size: 1.25rem;">Severe</h5>
+                            <i data-lucide="check-circle" class="check-icon" style="opacity: 0;"></i>
+                        </div>
+                        <p
+                            style="margin: 12px 0 0; font-size: 0.95rem; color: #64748B; font-weight: 600; line-height: 1.6;">
+                            Systemic failure, critical dehydration. Immediate emergency intervention.</p>
+                    </div>
+                </div>
+
+                <div
+                    style="background: linear-gradient(135deg, #0F172A 0%, #020617 100%); color: white; padding: 3rem; border-radius: 40px; margin-top: 3rem; position: relative; overflow: hidden;">
+                    <div
+                        style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: rgba(13, 148, 136, 0.1); border-radius: 50%;">
+                    </div>
+                    <h5
+                        style="margin: 0; font-size: 1.25rem; font-weight: 900; display: flex; align-items: center; gap: 10px;">
+                        <i data-lucide="shield-check" style="color: #0D9488;"></i> Secure Sync
+                    </h5>
+                    <p style="margin-top: 1.5rem; opacity: 0.7; font-size: 1rem; line-height: 1.8; font-weight: 500;">
+                        All clinical data is synchronized with the district epidemiological database using AES-256
+                        protocols.
+                    </p>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+        let selectedSeverity = 'Mild';
+
+        // Initialize severity UI
+        document.querySelector('.severity-card').classList.add('active');
+        document.querySelector('.severity-card .check-icon').style.opacity = '1';
+
+        function selectSeverity(card, val) {
+            document.querySelectorAll('.severity-card').forEach(c => {
+                c.classList.remove('active');
+                c.querySelector('.check-icon').style.opacity = '0';
+            });
+            card.classList.add('active');
+            card.querySelector('.check-icon').style.opacity = '1';
+            selectedSeverity = val;
+        }
+
+        // Symptom Checkbox Logic
+        document.querySelectorAll('.symptom-checkbox').forEach(label => {
+            const cb = label.querySelector('input');
+            label.addEventListener('click', () => {
+                cb.checked = !cb.checked;
+                label.classList.toggle('active', cb.checked);
+
+                if (label.id === 'otherSymptomBtn') {
+                    document.getElementById('otherSymptomsText').style.display = cb.checked ? 'block' : 'none';
+                }
+            });
+        });
+
+        document.getElementById('caseForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerHTML = '<i data-lucide="loader" class="animate-spin"></i> INITIALIZING STAGE 02...';
+            btn.disabled = true;
+            lucide.createIcons();
+
+            const symptoms = Array.from(document.querySelectorAll('.symptom-checkbox input:checked'))
+                .map(cb => cb.value);
+
+            const otherText = document.getElementById('otherSymptomsText').value.trim();
+            if (otherText) symptoms.push(otherText);
+
+            const user = hg.session.get();
+            const data = {
+                patient_name: document.getElementById('patientName').value,
+                age: document.getElementById('patientAge').value,
+                gender: document.getElementById('patientGender').value,
+                location: document.getElementById('patientLocation').value,
+                symptoms: symptoms.join(', '),
+                risk_level: selectedSeverity,
+                health_worker_id: user ? user.user_id : -1
+            };
+
+            const response = await hg.api.createCase(data);
+
+            if (response && response.case_id) {
+                // Store the case ID for the second step
+                localStorage.setItem('hg_last_case_id', response.case_id);
+                window.location.href = `water-source-details.html?caseId=${response.case_id}`;
+            } else {
+                hg.ui.showToast('Clinical Registry Error: ' + (response.message || 'Check connection'), 'error');
+                btn.innerHTML = 'PROCEED TO WATER SOURCE ANALYSIS <i data-lucide="arrow-right"></i>';
+                btn.disabled = false;
+                lucide.createIcons();
+            }
+        });
+
+        // Pre-fill location
+        const user = hg.session.get();
+        if (user && user.district) {
+            document.getElementById('patientLocation').value = user.district;
+        }
+    </script>
+</body>
+
+</html>

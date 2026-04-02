@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Analysis Reports - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #1E293B;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: #1E293B;
+            display: flex;
+            flex-direction: column;
+            padding: 2.5rem 1.5rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            color: #38BDF8;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.15rem 1.5rem;
+            text-decoration: none;
+            color: #94A3B8;
+            border-radius: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active {
+            background: #38BDF8;
+            color: #082F49;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 3.5rem 5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .report-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 32px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .report-header h2 {
+            font-size: 1.5rem;
+            font-weight: 950;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        .summary-badge {
+            background: #F1F5F9;
+            padding: 1.5rem;
+            border-radius: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i data-lucide="shield-check" style="width: 36px; height: 36px;"></i>
+            <span style="font-size: 1.5rem; font-weight: 950; letter-spacing: -1px; color: white;">Admin Central</span>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="admin-dashboard.html" class="nav-link">
+                <i data-lucide="layout-grid"></i> Dashboard
+            </a>
+            <a href="view-cases.html" class="nav-link">
+                <i data-lucide="activity"></i> Cases
+            </a>
+            <a href="summary-reports.html" class="nav-link active">
+                <i data-lucide="pie-chart"></i> Reports
+            </a>
+            <a href="admin-profile.html" class="nav-link">
+                <i data-lucide="user"></i> Profile
+            </a>
+        </nav>
+
+        <a href="index.html" class="nav-link" style="margin-top: auto; color: #F87171;">
+            <i data-lucide="log-out"></i> Sign Out
+        </a>
+    </aside>
+
+    <main class="main-content">
+        <div style="margin-bottom: 3.5rem;">
+            <h1 style="font-size: 3rem; font-weight: 950; margin: 0; letter-spacing: -1.5px; color: #0F172A;">Case
+                Analysis Reports</h1>
+            <p style="color: #64748B; font-weight: 600; margin-top: 5px;">Aggregated regional metrics and clinical
+                registry summaries.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="report-card">
+                <div class="report-header">
+                    <h2>Severity Distribution</h2>
+                    <div
+                        style="background: #F8FAFC; padding: 6px 12px; border-radius: 12px; font-weight: 800; font-size: 0.75rem; color: #64748B;">
+                        LIFETIME DATA</div>
+                </div>
+                <div style="display: flex; gap: 2rem; align-items: center;">
+                    <div class="chart-container" style="flex: 1;">
+                        <canvas id="severityChart"></canvas>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 1rem;">
+                        <div class="summary-badge" style="border-left: 6px solid #EF4444;">
+                            <span style="font-weight: 700; color: #64748B;">Critical Tiers</span>
+                            <span id="criticalCountDisplay"
+                                style="font-size: 1.5rem; font-weight: 950; color: #0F172A;">00</span>
+                        </div>
+                        <div class="summary-badge" style="border-left: 6px solid #0D9488;">
+                            <span style="font-weight: 700; color: #64748B;">Total Registry</span>
+                            <span id="totalCasesDisplay"
+                                style="font-size: 1.5rem; font-weight: 950; color: #0F172A;">00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-card">
+                <div class="report-header">
+                    <h2>Disease Pattern Analysis</h2>
+                    <i data-lucide="more-horizontal" style="color: #94A3B8;"></i>
+                </div>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="text-align: left; background: #F8FAFC;">
+                            <th style="padding: 1rem; color: #64748B; font-size: 0.7rem; text-transform: uppercase;">
+                                Condition</th>
+                            <th
+                                style="padding: 1rem; color: #64748B; font-size: 0.7rem; text-transform: uppercase; text-align: right;">
+                                Incidents</th>
+                        </tr>
+                    </thead>
+                    <tbody id="diseaseTableBody"></tbody>
+                    <tfoot>
+                        <tr style="border-top: 2px solid #F1F5F9;">
+                            <td style="padding: 1.5rem 1rem; font-weight: 800;">AGRREGATED TOTAL</td>
+                            <td id="aggregatedTotal"
+                                style="padding: 1.5rem 1rem; text-align: right; font-weight: 950; color: #0F172A;">0
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="report-card">
+            <div class="report-header">
+                <h2>Ingest Trends</h2>
+                <div style="display: flex; gap: 1rem;">
+                    <span
+                        style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 700; color: #64748B;">
+                        <div style="width: 10px; height: 10px; border-radius: 50%; background: #38BDF8;"></div> New
+                        Submissions
+                    </span>
+                </div>
+            </div>
+            <div class="chart-container" style="height: 400px;">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            lucide.createIcons();
+            const response = await hg.api.getAdminPatientCases();
+
+            if (response && response.status === 'success' && response.cases) {
+                const allCases = response.cases;
+                const totalCount = allCases.length;
+
+                document.getElementById('totalCasesDisplay').textContent = totalCount;
+                document.getElementById('aggregatedTotal').textContent = totalCount;
+
+                const critical = allCases.filter(c => ['severe', 'high', 'critical'].includes((c.severity || '').toLowerCase())).length;
+                const moderate = allCases.filter(c => (c.severity || '').toLowerCase() === 'moderate').length;
+                const low = totalCount - critical - moderate;
+
+                const displayCrit = document.getElementById('criticalCountDisplay');
+                if (displayCrit) displayCrit.textContent = critical.toString().padStart(2, '0');
+
+                // Disease Mapping
+                const diseaseMap = {};
+                allCases.forEach(c => {
+                    const disease = (Array.isArray(c.symptoms) ? c.symptoms[0] : c.symptoms) || 'General Infection';
+                    diseaseMap[disease] = (diseaseMap[disease] || 0) + 1;
+                });
+
+                const tableBody = document.getElementById('diseaseTableBody');
+                if (tableBody) {
+                    tableBody.innerHTML = '';
+                    Object.keys(diseaseMap).forEach(disease => {
+                        const tr = document.createElement('tr');
+                        tr.style.borderBottom = '1px solid #F1F5F9';
+                        tr.innerHTML = `
+                            <td style="padding: 1.25rem 1rem; font-weight: 700; color: #1E293B;">${disease}</td>
+                            <td style="padding: 1.25rem 1rem; text-align: right; font-weight: 900; color: #0D9488;">${diseaseMap[disease]}</td>
+                        `;
+                        tableBody.appendChild(tr);
+                    });
+                }
+
+                // Severity Chart
+                new Chart(document.getElementById('severityChart').getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Critical', 'Moderate', 'Low'],
+                        datasets: [{
+                            data: [critical || 1, moderate || 1, low || 1],
+                            backgroundColor: ['#EF4444', '#F59E0B', '#38BDF8'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: { cutout: '75%', plugins: { legend: { display: false } } }
+                });
+
+                // Trend Chart
+                new Chart(document.getElementById('trendChart').getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Current'],
+                        datasets: [{
+                            label: 'Clinical Ingest',
+                            data: [12, 18, 15, 22, 19, totalCount],
+                            borderColor: '#38BDF8',
+                            tension: 0.4,
+                            fill: true,
+                            backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                            pointBackgroundColor: '#38BDF8'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true, grid: { color: '#F1F5F9' } }, x: { grid: { display: false } } }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

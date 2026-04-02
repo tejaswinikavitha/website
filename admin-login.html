@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HydroGuard - Admin Control</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #000 url('dark_hero_background_1774192398621.png') no-repeat center right;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 2rem;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 0;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            z-index: 2;
+        }
+
+        .login-card {
+            position: relative;
+            z-index: 1;
+            background: white;
+            width: 100%;
+            max-width: 440px;
+            border-radius: 60px;
+            padding: 4rem 3rem;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .brand-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .brand-header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #1E293B;
+            margin: 0;
+            letter-spacing: -2px;
+        }
+
+        .brand-header p {
+            color: #64748B;
+            font-weight: 700;
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+
+        .role-badge {
+            background: linear-gradient(90deg, #1E293B 0%, #334155 100%);
+            color: white;
+            padding: 1.25rem;
+            border-radius: 20px;
+            margin-bottom: 2.5rem;
+            font-weight: 700;
+        }
+
+        .role-badge span {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-bottom: 4px;
+        }
+
+        .role-badge h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 900;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 800;
+            color: #1E293B;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .input-container i {
+            position: absolute;
+            left: 1.25rem;
+            top: 1.25rem;
+            color: #94A3B8;
+            width: 20px;
+        }
+
+        .input-container input {
+            width: 100%;
+            padding: 1.25rem 1.5rem 1.25rem 3.5rem;
+            border-radius: 99px;
+            border: 2px solid #E2E8F0;
+            font-size: 1rem;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: all 0.3s;
+        }
+
+        .input-container input:focus {
+            border-color: #1E293B;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(30, 41, 59, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: #1E293B;
+            color: white;
+            padding: 1.25rem;
+            border-radius: 99px;
+            border: none;
+            font-weight: 900;
+            font-size: 1.25rem;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(30, 41, 59, 0.3);
+        }
+
+        .extra-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .extra-links a {
+            color: #1E293B;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .signup-footer {
+            margin-top: 3rem;
+            color: #64748B;
+            font-weight: 600;
+        }
+
+        .signup-footer a {
+            color: #1E293B;
+            text-decoration: none;
+            font-weight: 800;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-card">
+        <div class="brand-header">
+            <h1>HydroGuard</h1>
+            <p>Administrative Access</p>
+        </div>
+
+        <div class="role-badge">
+            <span>Logging in as</span>
+            <h3>System Administrator</h3>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Admin Email</label>
+                <div class="input-container">
+                    <i data-lucide="shield-check"></i>
+                    <input type="email" placeholder="admin@gmail.com" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Access Key</label>
+                <div class="input-container">
+                    <i data-lucide="key"></i>
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <div class="extra-links">
+                <a href="forgot-password.html">Reset Access Key?</a>
+            </div>
+
+            <button type="submit" class="login-btn">Secure Login</button>
+        </form>
+
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const emailInput = document.querySelector('input[type="email"]');
+            const passwordInput = document.querySelector('input[type="password"]');
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            if (!email || !password) {
+                hg.ui.showToast('Please enter both email and password', 'error');
+                return;
+            }
+
+            hg.ui.showToast('Granting Admin Privileges...', 'info');
+
+            try {
+                const response = await hg.api.adminLogin({ email, password });
+
+                if (response.status === 'success' || response.success) {
+                    const adminUser = response.admin || response.user;
+                    if (adminUser) {
+                        // Ensure role is set for consistent session management
+                        adminUser.role = 'admin';
+                        hg.session.save(adminUser);
+                        hg.ui.showToast('Login successful!', 'success');
+                        setTimeout(() => {
+                            location.href = 'admin-dashboard.html';
+                        }, 1000);
+                    } else {
+                        hg.ui.showToast('Unauthorized. Login failed.', 'error');
+                    }
+                } else {
+                    hg.ui.showToast(response.message || 'Login failed', 'error');
+                }
+            } catch (error) {
+                console.error(error);
+                hg.ui.showToast('Connection error. Please check your network and try again.', 'error');
+            }
+        });
+    </script>
+</body>
+
+</html>

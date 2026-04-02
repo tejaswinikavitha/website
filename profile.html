@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personnel Profile - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #1E293B;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1.5rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding: 0 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            border-radius: 16px;
+            color: #94A3B8;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(37, 99, 235, 0.15);
+            color: #38BDF8;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 4rem 6rem;
+        }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .personnel-hero {
+            background: #0F172A;
+            color: white;
+            border-radius: 40px;
+            padding: 3.5rem 2.5rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.15);
+            color: #34D399;
+            padding: 6px 14px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .settings-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            padding: 2.5rem;
+            border-radius: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+        }
+
+        .settings-card:hover {
+            transform: translateY(-8px);
+            border-color: #38BDF8;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+        }
+
+        .icon-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i data-lucide="droplets" style="width: 40px; height: 40px; color: #38BDF8;"></i>
+            <span style="font-size: 1.75rem; font-weight: 900; letter-spacing: -1px; color: white;">HydroGuard</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="healthworker-dashboard.html" class="nav-item">
+                <i data-lucide="layout-dashboard"></i> Overview
+            </a>
+            <a href="new-case.html" class="nav-item">
+                <i data-lucide="user-plus"></i> Add Patient Case
+            </a>
+            <a href="notifications.html" class="nav-item">
+                <i data-lucide="bell"></i> Notifications
+            </a>
+            <a href="profile.html" class="nav-item active">
+                <i data-lucide="user"></i> Profile
+            </a>
+        </nav>
+        <a href="index.html" class="nav-item" style="margin-top: auto; color: #F87171;">
+            <i data-lucide="log-out"></i> Logout
+        </a>
+    </aside>
+
+    <main class="main-content">
+        <header style="margin-bottom: 4rem;">
+            <h1 style="font-size: 3rem; font-weight: 950; letter-spacing: -1.5px; margin: 0;">Personnel Console</h1>
+            <p style="color: #64748B; font-weight: 600; margin-top: 10px; font-size: 1.1rem;">Secure administrative and
+                clinical access management.</p>
+        </header>
+
+        <div class="portal-grid">
+            <!-- Hero Section -->
+            <div class="personnel-hero">
+                <div class="status-badge"><i data-lucide="check-circle" style="width: 14px;"></i> Duty Active</div>
+                <div
+                    style="width: 120px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 40px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; border: 2px solid rgba(255,255,255,0.1);">
+                    <i data-lucide="user" style="width: 60px; height: 60px; color: #38BDF8;"></i>
+                </div>
+                <h2 id="userName" style="font-size: 2.25rem; font-weight: 950; margin: 0; letter-spacing: -1px;">Rajesh
+                    Kumar</h2>
+                <p style="color: #94A3B8; font-weight: 600; margin-top: 8px;">Health Personnel ID: #HG-0021-RT</p>
+
+                <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 3rem;">
+                    <div
+                        style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 20px; text-align: left;">
+                        <span
+                            style="display: block; font-size: 0.7rem; font-weight: 800; color: #64748B; text-transform: uppercase; margin-bottom: 4px;">Assigned
+                            Ward</span>
+                        <span id="userLocation" style="font-weight: 800; font-size: 1.1rem; color: #38BDF8;">Guntur
+                            District Central</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Column -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div class="grid grid-cols-2" style="gap: 1.5rem;">
+                    <a href="change-password.html" class="settings-card">
+                        <div class="icon-circle" style="background: #FFF7ED; color: #EA580C;"><i
+                                data-lucide="shield-check"></i></div>
+                        <div>
+                            <h3 style="font-weight: 900; margin-bottom: 0.5rem; font-size: 1.25rem;">Security Manifest
+                            </h3>
+                            <p style="color: #64748B; font-size: 0.9rem; line-height: 1.6;">Update your encrypted access
+                                credentials and manage secure session tokens.</p>
+                        </div>
+                    </a>
+
+                    <div onclick="hg.session.logout()" class="settings-card" style="cursor: pointer;">
+                        <div class="icon-circle" style="background: #FEF2F2; color: #EF4444;"><i
+                                data-lucide="power"></i></div>
+                        <div>
+                            <h3 style="font-weight: 900; margin-bottom: 0.5rem; font-size: 1.25rem;">Terminate Session
+                            </h3>
+                            <p style="color: #64748B; font-size: 0.9rem; line-height: 1.6;">Immediately end clinical
+                                surveillance access and securely exit the portal.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-card" style="flex-direction: row; align-items: center; gap: 2rem;">
+                    <div class="icon-circle" style="background: #F1F5F9; color: #475569;"><i data-lucide="mail"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <h3 style="font-weight: 900; margin-bottom: 0.25rem; font-size: 1.25rem;">Communication Node
+                        </h3>
+                        <p id="userEmail" style="color: #64748B; font-weight: 700;">rajesh.kumar@health.gov.in</p>
+                    </div>
+                    <button class="btn btn-secondary" style="background: #F8FAFC;">Verify Email</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            const user = hg.session.get();
+            if (user) {
+                document.getElementById('userName').innerText = user.name || 'Personnel Name';
+                document.getElementById('userLocation').innerText = user.location ? user.location + ' District Node' : 'Station Pending';
+                document.getElementById('userEmail').innerText = user.email || 'No email attached';
+            }
+            lucide.createIcons();
+        });
+    </script>
+</body>
+
+</html>

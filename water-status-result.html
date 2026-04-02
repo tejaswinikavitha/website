@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Report - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #0F172A;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 2rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 20px 0 50px rgba(0, 0, 0, 0.02);
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-radius: 20px;
+            color: #64748B;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #E0F2FE;
+            color: #0284C7;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 300px;
+        }
+
+        .result-hero {
+            background: #0284C7;
+            color: white;
+            padding: 10rem 6rem;
+            text-align: center;
+        }
+
+        .main-container {
+            max-width: 900px;
+            margin: -5rem auto 5rem;
+            padding: 0 1.5rem;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 48px;
+            padding: 4.5rem;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E2E8F0;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ECFDF5;
+            color: #10B981;
+            padding: 10px 20px;
+            border-radius: 99px;
+            font-weight: 850;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .directive-box {
+            background: #F8FAFC;
+            padding: 2rem;
+            border-radius: 24px;
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            border: 1px solid #F1F5F9;
+        }
+
+        .directive-icon {
+            width: 56px;
+            height: 56px;
+            background: white;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0EA5E9;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i data-lucide="droplets" style="width: 36px; height: 36px; color: #0EA5E9;"></i>
+            <span style="font-size: 1.5rem; font-weight: 900; color: #0F172A;">HydroGuard</span>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="citizen-dashboard.html" class="nav-link">
+                <i data-lucide="layout-dashboard"></i> <span>Overview</span>
+            </a>
+            <a href="water-check.html" class="nav-link active">
+                <i data-lucide="search"></i> <span>Check Water</span>
+            </a>
+            <a href="report-issue.html" class="nav-link">
+                <i data-lucide="alert-circle"></i> <span>Report Issue</span>
+            </a>
+            <a href="sanitization-tips.html" class="nav-link">
+                <i data-lucide="shield-check"></i> <span>Health Tips</span>
+            </a>
+            <a href="citizen-profile.html" class="nav-link">
+                <i data-lucide="user"></i> <span>My Profile</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="result-hero" id="reportHeader">
+            <h1 style="font-size: 4rem; font-weight: 950; letter-spacing: -2px; margin: 0;">Diagnostic Result</h1>
+            <p style="opacity: 0.8; font-weight: 600; margin-top: 15px; font-size: 1.25rem;">Verification complete for
+                regional supply.</p>
+        </div>
+
+        <div class="main-container">
+            <div class="result-card">
+                <div id="statusPill" class="status-pill"><i data-lucide="shield-check"></i> Analysis Synchronized</div>
+
+                <h2 id="resultTitle"
+                    style="font-size: 3rem; font-weight: 950; margin: 0 0 1rem; color: #0F172A; letter-spacing: -1px;">
+                    Source Verified Safe</h2>
+                <p id="resultDesc"
+                    style="color: #64748B; font-weight: 600; line-height: 1.8; margin-bottom: 3.5rem; font-size: 1.15rem;">
+                    The sensory profile correlates with standard high-quality municipal supply. No active alerts have
+                    been triggered in your sector.</p>
+
+                <h4
+                    style="font-size: 0.9rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #1E293B; margin-bottom: 2rem;">
+                    Health Directives</h4>
+
+                <div class="directive-box">
+                    <div class="directive-icon"><i data-lucide="flame"></i></div>
+                    <div>
+                        <h5 style="margin: 0 0 4px; font-weight: 900; font-size: 1.1rem;">Boiling Protocol</h5>
+                        <p style="margin: 0; font-size: 0.95rem; color: #64748B; font-weight: 600;">Always boil water
+                            for 1 minute before drinking as a primary safeguard.</p>
+                    </div>
+                </div>
+
+                <div class="directive-box">
+                    <div class="directive-icon" style="color: #10B981;"><i data-lucide="filter"></i></div>
+                    <div>
+                        <h5 style="margin: 0 0 4px; font-weight: 900; font-size: 1.1rem;">Filter Maintenance</h5>
+                        <p style="margin: 0; font-size: 0.95rem; color: #64748B; font-weight: 600;">Clean ceramic
+                            filters every 15 days to remove accumulated sediments.</p>
+                    </div>
+                </div>
+
+                <a href="citizen-dashboard.html"
+                    style="background: #0F172A; color: white; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 1.5rem; border-radius: 20px; font-weight: 950; margin-top: 4rem; transition: all 0.3s;"
+                    onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                    <i data-lucide="chevron-left"></i> RETURN TO DASHBOARD
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const lastCheck = JSON.parse(localStorage.getItem('hg_last_water_check') || '{}');
+            if (lastCheck.risk === 'High') {
+                document.getElementById('resultTitle').textContent = 'Source At Risk';
+                document.getElementById('resultDesc').textContent = 'Anomalies detected in sensory profile. We recommend not consuming this water without secondary purification. A health worker has been notified.';
+                document.getElementById('statusPill').style.background = '#FEF2F2';
+                document.getElementById('statusPill').style.color = '#EF4444';
+                document.getElementById('statusPill').innerHTML = '<i data-lucide="alert-triangle"></i> Action Required';
+                document.getElementById('reportHeader').style.background = '#EF4444';
+            }
+            lucide.createIcons();
+        });
+    </script>
+</body>
+
+</html>

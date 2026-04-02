@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Directory - HydroGuard Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F1F5F9;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #1E293B;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 280px;
+            background: #1E293B;
+            display: flex;
+            flex-direction: column;
+            padding: 2.5rem 1.5rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            color: #38BDF8;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.15rem 1.5rem;
+            text-decoration: none;
+            color: #94A3B8;
+            border-radius: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active {
+            background: #38BDF8;
+            color: #082F49;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 3.5rem 5rem;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .header-title h1 {
+            font-size: 2.5rem;
+            font-weight: 950;
+            margin: 0;
+            letter-spacing: -1.5px;
+            color: #0F172A;
+        }
+
+        .header-title p {
+            color: #64748B;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-action {
+            padding: 0.85rem 1.5rem;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary-action { background: #38BDF8; color: #082F49; }
+        .btn-secondary-action { background: white; color: #1E293B; border: 1.5px solid #E2E8F0; }
+
+        .table-card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1.5px solid #F1F5F9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+            width: 350px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94A3B8;
+            width: 18px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.85rem 1rem 0.85rem 2.75rem;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 12px;
+            font-weight: 600;
+            font-family: inherit;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 1.25rem 2rem; color: #64748B; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; background: #F8FAFC; border-bottom: 2px solid #F1F5F9; }
+        td { padding: 1.5rem 2rem; border-bottom: 1px solid #F1F5F9; vertical-align: middle; }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 14px;
+            background: #E0F2FE;
+            color: #0369A1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.9rem;
+        }
+
+        .role-pill {
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 0.75rem;
+        }
+
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        @media (max-width: 1024px) {
+            .sidebar { width: 80px; }
+            .sidebar span { display: none; }
+            .main-content { margin-left: 80px; }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i data-lucide="shield-check" style="width: 36px; height: 36px;"></i>
+            <span style="font-size: 1.5rem; font-weight: 950; letter-spacing: -1px; color: white;">Admin Central</span>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="admin-dashboard.html" class="nav-link">
+                <i data-lucide="layout-grid"></i> Dashboard
+            </a>
+            <a href="view-cases.html" class="nav-link">
+                <i data-lucide="activity"></i> Clinical Cases
+            </a>
+            <a href="summary-reports.html" class="nav-link">
+                <i data-lucide="pie-chart"></i> Summary Analytics
+            </a>
+            <a href="manage-users.html" class="nav-link active">
+                <i data-lucide="users"></i> User Directory
+            </a>
+            <a href="admin-profile.html" class="nav-link">
+                <i data-lucide="settings"></i> System Settings
+            </a>
+        </nav>
+
+        <a href="index.html" class="nav-link" style="margin-top: auto; color: #F87171;">
+            <i data-lucide="log-out"></i> Sign Out
+        </a>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-header">
+            <div class="header-title">
+                <h1>Personnel Directory</h1>
+                <p>Manage access credentials and system privileges.</p>
+            </div>
+            <div class="action-btns">
+                <button class="btn-action btn-secondary-action"><i data-lucide="download"></i> Audit Log</button>
+                <button class="btn-action btn-primary-action"><i data-lucide="user-plus"></i> Provision Account</button>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <div class="table-header">
+                <div class="search-box">
+                    <i data-lucide="search"></i>
+                    <input type="text" placeholder="Search by name, email or role...">
+                </div>
+                <div style="font-size: 0.85rem; color: #64748B; font-weight: 700;">152 total records</div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Credential Holder</th>
+                        <th>Assigned Privilege</th>
+                        <th>Network Status</th>
+                        <th style="text-align: right;">Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div class="user-avatar" style="background: #E0F2FE; color: #0369A1;">MST</div>
+                                <div>
+                                    <div style="font-weight: 900; color: #0F172A;">Mude Sai Tejaswini</div>
+                                    <div style="font-size: 0.8rem; color: #64748B; font-weight: 600;">sai.teja@hydroguard.io</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="role-pill" style="background: #ECFDF5; color: #059669;">CITIZEN_V1</span></td>
+                        <td>
+                            <div class="status-badge" style="color: #10B981;">
+                                <div class="dot" style="background: #10B981; box-shadow: 0 0 10px #10B981;"></div> ONLINE
+                            </div>
+                        </td>
+                        <td style="text-align: right;"><button style="background: none; border: none; color: #94A3B8; cursor: pointer;"><i data-lucide="more-horizontal"></i></button></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div class="user-avatar" style="background: #F0F9FF; color: #0EA5E9;">AK</div>
+                                <div>
+                                    <div style="font-weight: 900; color: #0F172A;">Dr. Arun Kumar</div>
+                                    <div style="font-size: 0.8rem; color: #64748B; font-weight: 600;">arun.k@health.gov.in</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="role-pill" style="background: #EFF6FF; color: #3B82F6;">FIELD_OFFICER</span></td>
+                        <td>
+                            <div class="status-badge" style="color: #10B981;">
+                                <div class="dot" style="background: #10B981; box-shadow: 0 0 10px #10B981;"></div> ONLINE
+                            </div>
+                        </td>
+                        <td style="text-align: right;"><button style="background: none; border: none; color: #94A3B8; cursor: pointer;"><i data-lucide="more-horizontal"></i></button></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div class="user-avatar" style="background: #FFF7ED; color: #EA580C;">LB</div>
+                                <div>
+                                    <div style="font-weight: 900; color: #0F172A;">Health Board Node</div>
+                                    <div style="font-size: 0.8rem; color: #64748B; font-weight: 600;">board@central.health.org</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="role-pill" style="background: #FFF7ED; color: #EA580C;">WORKER_ROOT</span></td>
+                        <td>
+                            <div class="status-badge" style="color: #94A3B8;">
+                                <div class="dot" style="background: #CBD5E1;"></div> OFFLINE
+                            </div>
+                        </td>
+                        <td style="text-align: right;"><button style="background: none; border: none; color: #94A3B8; cursor: pointer;"><i data-lucide="more-horizontal"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div style="padding: 1.5rem 2rem; background: #F8FAFC; border-top: 1.5px solid #F1F5F9; display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-size: 0.85rem; color: #64748B; font-weight: 700;">Page 1 of 6</div>
+                <div style="display: flex; gap: 10px;">
+                    <button style="background: white; border: 1.5px solid #E2E8F0; padding: 6px 12px; border-radius: 8px; color: #64748B; font-weight: 900; cursor: pointer;">Prev</button>
+                    <button style="background: #0F172A; border: none; padding: 6px 12px; border-radius: 8px; color: white; font-weight: 900; cursor: pointer;">Next</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

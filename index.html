@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HydroGuard - Protecting Your Community, One Drop at a Time</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .hero-landing-dark {
+            background: #000;
+            padding: 8rem 0;
+            border-radius: 0 0 60px 60px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-bg-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            background: url('dark_hero_background_1774192398621.png') no-repeat center right;
+            background-size: contain;
+            opacity: 0.9;
+            z-index: 1;
+        }
+
+        .hero-landing-dark .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0;
+        }
+
+        .hero-landing-dark .hero-content h1 {
+            color: white;
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+
+        .hero-landing-dark .hero-content h1 span.highlight {
+            color: #38BDF8;
+        }
+
+        .hero-landing-dark .hero-content p {
+            color: #94A3B8;
+            font-size: 1.25rem;
+            max-width: 550px;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .hero-landing-dark .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-landing-dark .floating-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 32px;
+            box-shadow: 0 40px 80px rgba(56, 189, 248, 0.15);
+            text-align: center;
+            border: 1px solid #F1F5F9;
+        }
+    </style>
+</head>
+
+<body style="background: white;">
+    <nav class="navbar" style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <i data-lucide="droplets" class="text-primary" style="width: 32px; height: 32px;"></i>
+            <span style="font-size: 1.5rem; font-weight: 700; color: var(--secondary-color);">HydroGuard</span>
+        </div>
+        <div class="nav-link-group" style="position: absolute; left: 50%; transform: translateX(-50%);">
+            <a href="#how-it-works" class="nav-link">How it Works</a>
+            <a href="#about" class="nav-link">About</a>
+        </div>
+        <a href="role-selection.html" class="btn btn-primary"
+            style="background: var(--primary-dark); padding: 0.75rem 2rem; border-radius: 12px;">Get Started</a>
+    </nav>
+
+    <!-- Dark Hero Section -->
+    <section class="hero-landing-dark">
+        <div class="hero-bg-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Protecting Your Community, <span class="highlight">One Drop</span> at a <span
+                        style="color: white;">Time</span>.</h1>
+                <p>A digital sanctuary for water health. We monitor quality in real-time and provide instant alerts to
+                    keep your water systems safe and pristine.</p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="role-selection.html" class="btn btn-primary"
+                        style="background: #38BDF8; color: #082F49; padding: 1.25rem 3rem; border-radius: 16px; font-weight: 800; border: none;">Get
+                        Started</a>
+                    <a href="#" class="btn btn-secondary"
+                        style="padding: 1.25rem 3rem; border-radius: 16px; font-weight: 700;">View Live Map</a>
+                </div>
+            </div>
+            <div class="hero-image-container" style="max-width: 450px;">
+                <!-- Quality Score Card Removed per User Request -->
+            </div>
+        </div>
+    </section>
+
+    <div class="container" style="padding-top: 8rem;" id="about">
+        <!-- Mission Header -->
+        <div style="margin-bottom: 5rem;">
+            <span
+                style="background: #BBF7D0; color: #166534; padding: 6px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">Our
+                Mission</span>
+            <h2
+                style="font-size: 3rem; font-weight: 900; color: var(--secondary-color); margin-top: 1.5rem; letter-spacing: -0.05em;">
+                Advanced Water Stewardship</h2>
+        </div>
+
+        <!-- Features Row 1 -->
+        <div class="feature-card-row" style="margin-bottom: 3rem;">
+            <div class="feature-card" style="padding: 3.5rem;">
+                <div class="feature-card-content">
+                    <div
+                        style="background: #E0F2FE; color: #0369A1; width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                        <i data-lucide="droplet" style="width: 26px;"></i>
+                    </div>
+                    <h3 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 1.25rem;">Safe Water Monitoring</h3>
+                    <p style="color: var(--text-gray); font-size: 1.05rem; line-height: 1.75;">Track quality and safety
+                        with real-time updates across multiple touchpoints. Our sensors monitor pH, turbidity, and
+                        chemical composition 24/7.</p>
+                </div>
+                <img src="scientist_lab_monitoring_1774191588769.png" alt="Scientist in Lab" class="feature-card-image"
+                    style="width: 320px; height: 220px; border-radius: 28px;">
+            </div>
+            <div class="status-card" style="padding: 3.5rem; background: #0F172A;">
+                <div
+                    style="background: rgba(255,255,255,0.05); width: 64px; height: 64px; border-radius: 18px; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                    <i data-lucide="shield" style="width: 34px; height: 34px; color: #38BDF8;"></i>
+                </div>
+                <h3 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 1.25rem; color: white;">Community
+                    Protection</h3>
+                <p style="font-size: 1.05rem; color: #94A3B8; line-height: 1.75;">Early detection and rapid response
+                    protocols to prevent health crises before they start.</p>
+                <div class="status-indicator"
+                    style="margin-top: 3rem; color: white; border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.25rem; border-radius: 99px; width: fit-content;">
+                    <div class="dot"></div> LIVE STATUS: All systems operational
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Worker Section -->
+        <div class="feature-card" style="margin-bottom: 8rem; justify-content: space-between; padding: 4.5rem;">
+            <div style="max-width: 600px;">
+                <div
+                    style="background: #F0FDF4; color: #166534; width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                    <i data-lucide="plus-square" style="width: 26px;"></i>
+                </div>
+                <h3 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 1.25rem;">Health Worker Reporting</h3>
+                <p style="color: var(--text-gray); font-size: 1.05rem; line-height: 1.75;">Streamlined interface for
+                    healthcare professionals to report illness clusters and regional quality issues quickly, enabling
+                    instant epidemiological responses.</p>
+            </div>
+            <div class="profile-mini-card" style="padding: 1.5rem 2.5rem; border-radius: 32px;">
+                <img src="dr_sarah_chen_profile_1774191610560.png" alt="Dr Sarah Chen" class="profile-avatar"
+                    style="width: 70px; height: 70px; border: 3px solid #F1F5F9;">
+                <div>
+                    <div style="font-weight: 900; font-size: 1.15rem; color: var(--secondary-color);">Dr. Sarah Chen
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-gray); font-weight: 700; margin-bottom: 0.75rem;">
+                        Regional Health Coordinator</div>
+                    <div
+                        style="width: 220px; height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden; position: relative;">
+                        <div
+                            style="position: absolute; left: 0; top: 0; height: 100%; width: 75%; background: var(--primary-color);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <div id="how-it-works" style="margin-bottom: 8rem; padding-top: 2rem;">
+            <div style="text-align: center; margin-bottom: 5rem;">
+                <span style="background: #E0F2FE; color: #0369A1; padding: 6px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase;">The Process</span>
+                <h2 style="font-size: 3rem; font-weight: 950; margin-top: 1.5rem; letter-spacing: -0.05em;">How HydroGuard Works</h2>
+            </div>
+            
+            <div class="grid grid-cols-3" style="gap: 3rem;">
+                <!-- Step 1 -->
+                <div style="text-align: center;">
+                    <div style="background: #F0F9FF; width: 100px; height: 100px; border-radius: 30px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; transform: rotate(-5deg);">
+                        <i data-lucide="activity" style="width: 40px; height: 40px; color: #0EA5E9; transform: rotate(5deg);"></i>
+                    </div>
+                    <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem;">1. Real-time Monitoring</h3>
+                    <p style="color: #64748B; line-height: 1.7;">State-of-the-art biological and chemical sensors continuously analyze village water sources for pathogens and pollutants.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div style="text-align: center;">
+                    <div style="background: #ECFDF5; width: 100px; height: 100px; border-radius: 30px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; transform: rotate(5deg);">
+                        <i data-lucide="cpu" style="width: 40px; height: 40px; color: #10B981; transform: rotate(-5deg);"></i>
+                    </div>
+                    <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem;">2. Predictive Analysis</h3>
+                    <p style="color: #64748B; line-height: 1.7;">Cloud algorithms cross-reference clinical reports from health workers with sensor data to detect potential outbreaks before they spread.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div style="text-align: center;">
+                    <div style="background: #FFF7ED; width: 100px; height: 100px; border-radius: 30px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; transform: rotate(-5deg);">
+                        <i data-lucide="message-square" style="width: 40px; height: 40px; color: #F59E0B; transform: rotate(5deg);"></i>
+                    </div>
+                    <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem;">3. Instant Response</h3>
+                    <p style="color: #64748B; line-height: 1.7;">Immediate alerts are sent to citizens and authorities via SMS and the HydroGuard app, mobilizing rapid localized treatment teams.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer style="background: #F8FAFC; padding: 6rem 1.5rem; border-top: 1px solid #E2E8F0;">
+            <div class="container"
+                style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0;">
+                <div>
+                    <div
+                        style="font-weight: 800; color: var(--secondary-color); font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i data-lucide="droplets" class="text-primary" style="width: 24px;"></i> HydroGuard
+                    </div>
+                    <div style="font-size: 0.9rem; color: var(--text-gray); max-width: 320px; line-height: 1.6;">
+                        Precision water monitoring and localized physiological manifestations tracking for a safer, more
+                        resilient society.</div>
+                </div>
+                <div style="display: flex; gap: 5rem;">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <span
+                            style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; color: var(--secondary-color); letter-spacing: 0.1em;">Resources</span>
+                        <a href="#" style="text-decoration: none; font-size: 0.9rem; color: var(--text-gray);">Privacy
+                            Policy</a>
+                        <a href="#" style="text-decoration: none; font-size: 0.9rem; color: var(--text-gray);">Terms of
+                            Service</a>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <span
+                            style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; color: var(--secondary-color); letter-spacing: 0.1em;">Support</span>
+                        <a href="#" style="text-decoration: none; font-size: 0.9rem; color: var(--text-gray);">Contact
+                            Center</a>
+                        <a href="#" style="text-decoration: none; font-size: 0.9rem; color: var(--text-gray);">Security
+                            Hub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container"
+                style="padding-top: 4rem; margin-top: 4rem; border-top: 1px solid rgba(0,0,0,0.05); text-align: center;">
+                <p style="font-size: 0.85rem; color: #94A3B8; font-weight: 600;">&copy; 2024 HydroGuard Global
+                    Monitoring. Protecting the Pristine Current.</p>
+            </div>
+        </footer>
+
+        <script src="script.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                lucide.createIcons();
+            });
+        </script>
+</body>
+
+</html>

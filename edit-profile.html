@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body style="background: #F8FAFC;">
+    <nav class="navbar">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <i data-lucide="droplets" class="text-primary" style="width: 32px; height: 32px;"></i>
+            <span style="font-size: 1.5rem; font-weight: 700; color: var(--secondary-color);">HydroGuard</span>
+        </div>
+        <div class="nav-link-group" style="position: absolute; left: 50%; transform: translateX(-50%);">
+            <a href="citizen-dashboard.html" class="nav-link">Overview</a>
+            <a href="report-issue.html" class="nav-link">Check Water Source</a>
+            <a href="sanitization-tips.html" class="nav-link">Health & Sanitization Tips</a>
+            <a href="citizen-profile.html" class="nav-link active">My Profile</a>
+        </div>
+    </nav>
+
+    <div class="container"
+        style="display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 100px);">
+        <div class="card glass" style="max-width: 600px; padding: 3rem;">
+            <header style="text-align: center; margin-bottom: 3rem;">
+                <div
+                    style="width: 120px; height: 120px; background: #E2E8F0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; position: relative; border: 4px solid white; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
+                    <i data-lucide="user" style="width: 60px; height: 60px; color: #94A3B8;"></i>
+                    <div
+                        style="position: absolute; bottom: 0; right: 0; background: var(--primary-color); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid white; cursor: pointer;">
+                        <i data-lucide="camera" style="width: 16px;"></i>
+                    </div>
+                </div>
+                <h2 style="font-size: 1.75rem; font-weight: 900; color: var(--secondary-color);">Update Profile</h2>
+                <p style="color: var(--text-gray); font-size: 0.9rem; margin-top: 0.5rem;">Update your personal information and location.</p>
+            </header>
+
+            <form id="editProfileForm">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="mb-4">
+                        <label
+                            style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-gray); text-transform: uppercase; margin-bottom: 0.5rem;">Full Name</label>
+                        <input type="text" id="fullName" value="" placeholder="Enter your full name" required
+                            style="width: 100%; padding: 0.875rem; border: 1px solid #E2E8F0; border-radius: 10px; font-weight: 600;">
+                    </div>
+                    <div class="mb-4">
+                        <label
+                            style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-gray); text-transform: uppercase; margin-bottom: 0.5rem;">Email Address</label>
+                        <input type="email" id="email" value="" placeholder="Enter your email" required
+                            style="width: 100%; padding: 0.875rem; border: 1px solid #E2E8F0; border-radius: 10px; font-weight: 600;">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="mb-4">
+                        <label
+                            style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-gray); text-transform: uppercase; margin-bottom: 0.5rem;">Phone Number</label>
+                        <input type="tel" id="phone" value="" placeholder="Enter your phone" required
+                            style="width: 100%; padding: 0.875rem; border: 1px solid #E2E8F0; border-radius: 10px; font-weight: 600;">
+                    </div>
+                    <div class="mb-4">
+                        <label
+                            style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-gray); text-transform: uppercase; margin-bottom: 0.5rem;">Location</label>
+                        <input type="text" id="location" value="" placeholder="Enter your location" required
+                            style="width: 100%; padding: 0.875rem; border: 1px solid #E2E8F0; border-radius: 10px; font-weight: 600;">
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary"
+                        style="width: 100%; padding: 1rem; font-size: 1rem; font-weight: 700;">
+                        <i data-lucide="save" style="width: 18px; margin-right: 8px;"></i> Save Changes
+                    </button>
+                    <button type="button" onclick="location.href='citizen-profile.html'" class="btn btn-secondary"
+                        style="width: 100%; padding: 1rem; margin-top: 1rem; background: white;">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        document.getElementById('editProfileForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            hg.ui.showToast('Saving updates...', 'info');
+
+            // Simulating API call
+            setTimeout(() => {
+                hg.ui.showToast('Profile updated successfully', 'success');
+                setTimeout(() => {
+                    location.href = 'citizen-profile.html';
+                }, 1000);
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>

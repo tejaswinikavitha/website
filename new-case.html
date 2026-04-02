@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Patient Entry - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #0F172A;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1.5rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            border-radius: 16px;
+            color: #64748B;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-link.active {
+            background: #EFF6FF;
+            color: #2563EB;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 3rem 5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 4rem;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #1E293B;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            border-radius: 16px;
+            border: 1px solid #E2E8F0;
+            background: white;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            border-color: #2563EB;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            outline: none;
+        }
+
+        .severity-btn {
+            padding: 1.25rem;
+            border: 2px solid #E2E8F0;
+            border-radius: 18px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 800;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .severity-btn:hover {
+            background: white;
+            border-color: #CBD5E1;
+        }
+
+        .severity-btn.active {
+            border-color: #2563EB;
+            background: #EFF6FF;
+            color: #2563EB;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem;">
+            <i data-lucide="droplets" style="width: 36px; height: 36px; color: #2563EB;"></i>
+            <span style="font-size: 1.5rem; font-weight: 950; color: #0F172A;">HydroGuard</span>
+        </div>
+
+        <nav style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1;">
+            <a href="healthworker-dashboard.html" class="nav-link">
+                <i data-lucide="layout-dashboard"></i> Overview
+            </a>
+            <a href="new-case.html" class="nav-link active">
+                <i data-lucide="user-plus"></i> Add Patient Case
+            </a>
+            <a href="notifications.html" class="nav-link">
+                <i data-lucide="bell"></i> Notifications
+            </a>
+            <a href="profile.html" class="nav-link">
+                <i data-lucide="user"></i> Profile
+            </a>
+        </nav>
+
+        <a href="index.html" class="nav-link" style="margin-top: auto; color: #EF4444;">
+            <i data-lucide="log-out"></i> Logout
+        </a>
+    </aside>
+
+    <main class="main-content">
+        <div
+            style="width: 100%; max-width: 900px; margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: flex-end;">
+            <div>
+                <span
+                    style="color: #2563EB; font-weight: 800; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px;">Epidemiological
+                    Entry</span>
+                <h1 style="font-size: 3rem; font-weight: 950; margin: 0; letter-spacing: -2px;">Initial Patient Profile
+                </h1>
+            </div>
+            <div
+                style="background: white; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; border: 1px solid #E2E8F0; display: flex; align-items: center; gap: 10px;">
+                <span style="color: #2563EB;">Step 1</span>
+                <div style="width: 40px; height: 4px; background: #E2E8F0; border-radius: 2px; overflow: hidden;">
+                    <div style="width: 50%; height: 100%; background: #2563EB;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form id="newCaseForm">
+                <div class="grid grid-cols-2" style="gap: 2rem;">
+                    <div class="input-group">
+                        <label>Patient Full Name</label>
+                        <input type="text" id="patientName" placeholder="e.g. Samuel J. Reed" required>
+                    </div>
+                    <div class="grid grid-cols-2" style="gap: 1.5rem;">
+                        <div class="input-group">
+                            <label>Age</label>
+                            <input type="number" id="age" placeholder="Years" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Gender</label>
+                            <select id="gender" required>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Current Location / Ward (GIS Reference)</label>
+                    <input type="text" id="location" placeholder="Primary residence address" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Observed Clinical Manifestations</label>
+                    <div
+                        style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; background: rgba(0,0,0,0.02); padding: 1.5rem; border-radius: 24px; border: 1px solid #E2E8F0;">
+                        <label style="display: flex; align-items: center; gap: 12px; margin: 0; cursor: pointer;">
+                            <input type="checkbox" value="Fever"
+                                style="width: 20px; height: 20px; accent-color: #2563EB;"> <span>Fever</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 12px; margin: 0; cursor: pointer;">
+                            <input type="checkbox" value="Vomiting"
+                                style="width: 20px; height: 20px; accent-color: #2563EB;"> <span>Vomiting</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 12px; margin: 0; cursor: pointer;">
+                            <input type="checkbox" value="Diarrhea"
+                                style="width: 20px; height: 20px; accent-color: #2563EB;"> <span>Diarrhea</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 12px; margin: 0; cursor: pointer;">
+                            <input type="checkbox" value="Dehydration"
+                                style="width: 20px; height: 20px; accent-color: #2563EB;"> <span>Dehydration</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 12px; margin: 0; cursor: pointer;">
+                            <input type="checkbox" value="Stomach Pain"
+                                style="width: 20px; height: 20px; accent-color: #2563EB;"> <span>Abdominal Cramps</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="input-group" style="margin-top: 3rem;">
+                    <label>Risk Severity Triage</label>
+                    <div class="grid grid-cols-3" style="gap: 1rem;" id="severitySelector">
+                        <div class="severity-btn" onclick="setSeverity('Mild', this)">Mild</div>
+                        <div class="severity-btn" onclick="setSeverity('Moderate', this)">Moderate</div>
+                        <div class="severity-btn" onclick="setSeverity('Severe', this)">Severe</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn"
+                    style="width: 100%; background: #2563EB; color: white; padding: 1.5rem; border-radius: 24px; font-weight: 800; font-size: 1.1rem; margin-top: 2rem; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 15px;">
+                    Next Step: Environmental Scan <i data-lucide="arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        let currentSeverity = null;
+
+        function setSeverity(val, el) {
+            document.querySelectorAll('.severity-btn').forEach(btn => btn.classList.remove('active'));
+            el.classList.add('active');
+            currentSeverity = val;
+        }
+
+        document.getElementById('newCaseForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentSeverity) {
+                alert('Triage Error: Please select risk severity.');
+                return;
+            }
+
+            const symptoms = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+
+            const data = {
+                patientName: document.getElementById('patientName').value,
+                age: document.getElementById('age').value,
+                gender: document.getElementById('gender').value,
+                location: document.getElementById('location').value,
+                symptoms: symptoms,
+                severity: currentSeverity
+            };
+
+            localStorage.setItem('hg_pending_case', JSON.stringify(data));
+            window.location.href = 'water-source-details.html';
+        });
+
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

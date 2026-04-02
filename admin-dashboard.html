@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Operations - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #1E293B;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 280px;
+            background: #1E293B;
+            display: flex;
+            flex-direction: column;
+            padding: 2.5rem 1.5rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            color: #38BDF8;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.15rem 1.5rem;
+            text-decoration: none;
+            color: #94A3B8;
+            border-radius: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active {
+            background: #38BDF8;
+            color: #082F49;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 5rem 7rem;
+        }
+
+        .dashboard-header {
+            margin-bottom: 5rem;
+        }
+
+        .dashboard-header h1 {
+            font-size: 3.5rem;
+            font-weight: 950;
+            margin: 0;
+            letter-spacing: -2px;
+            color: #0F172A;
+        }
+
+        .dashboard-header p {
+            color: #64748B;
+            font-weight: 600;
+            margin-top: 10px;
+            font-size: 1.25rem;
+        }
+
+        /* Action Cards */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .action-card {
+            background: white;
+            padding: 4rem 3rem;
+            border-radius: 48px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 2rem;
+            border: 1px solid #E2E8F0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.03);
+        }
+
+        .action-card:hover {
+            transform: translateY(-12px);
+            border-color: #38BDF8;
+            box-shadow: 0 40px 80px rgba(56, 189, 248, 0.12);
+        }
+
+        .action-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.75rem;
+        }
+
+        .action-info h3 {
+            font-size: 1.75rem;
+            font-weight: 950;
+            margin: 0 0 0.75rem;
+            color: #0F172A;
+            letter-spacing: -0.5px;
+        }
+
+        .action-info p {
+            color: #64748B;
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .count-badge {
+            background: #F1F5F9;
+            color: #0F172A;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-weight: 900;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i data-lucide="shield-check" style="width: 36px; height: 36px;"></i>
+            <span style="font-size: 1.5rem; font-weight: 950; letter-spacing: -1px; color: white;">Admin Central</span>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="admin-dashboard.html" class="nav-link active">
+                <i data-lucide="layout-grid"></i> Dashboard
+            </a>
+            <a href="view-cases.html" class="nav-link">
+                <i data-lucide="activity"></i> Cases
+            </a>
+            <a href="summary-reports.html" class="nav-link">
+                <i data-lucide="pie-chart"></i> Reports
+            </a>
+            <a href="admin-profile.html" class="nav-link">
+                <i data-lucide="user"></i> Profile
+            </a>
+        </nav>
+
+        <a href="index.html" class="nav-link" style="margin-top: auto; color: #F87171;">
+            <i data-lucide="log-out"></i> Sign Out
+        </a>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1>Administrative Dashboard</h1>
+            <p>Strategic oversight and high-level infrastructure control.</p>
+        </div>
+
+        <div class="action-grid">
+            <a href="view-cases.html" class="action-card">
+                <div class="action-icon" style="background: #E0F2FE; color: #0284C7;">
+                    <i data-lucide="clipboard-list"></i>
+                </div>
+                <div class="action-info">
+                    <h3>Cases</h3>
+                    <p>Review and verify all incoming clinical data from regional health nodes.</p>
+                    <div class="count-badge">0 ACTIVE</div>
+                </div>
+            </a>
+
+            <a href="summary-reports.html" class="action-card">
+                <div class="action-icon" style="background: #ECFDF5; color: #059669;">
+                    <i data-lucide="bar-chart-3"></i>
+                </div>
+                <div class="action-info">
+                    <h3>Reports</h3>
+                    <p>Access total case counts, regional summaries, and epidemiological trend analysis.</p>
+                    <div class="count-badge">0 TOTAL COUNT</div>
+                </div>
+            </a>
+
+            <a href="admin-profile.html" class="action-card">
+                <div class="action-icon" style="background: #F1F5F9; color: #475569;">
+                    <i data-lucide="user"></i>
+                </div>
+                <div class="action-info">
+                    <h3>Profile</h3>
+                    <p>System account information and administrative security settings.</p>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', async () => {
+            const response = await hg.api.getAdminPatientCases();
+            if (response && response.status === 'success' && response.cases) {
+                const count = response.cases.length;
+                const badges = document.querySelectorAll('.count-badge');
+                if (badges[0]) badges[0].textContent = `${count} ACTIVE`;
+                if (badges[1]) badges[1].textContent = `${count} TOTAL COUNT`;
+            }
+        });
+    </script>
+</body>
+
+</html>

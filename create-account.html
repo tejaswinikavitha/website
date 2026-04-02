@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HydroGuard - Create Account</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #CCF2F4;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            padding: 2rem;
+        }
+
+        .signup-card {
+            background: white;
+            width: 100%;
+            max-width: 440px;
+            border-radius: 60px;
+            padding: 4rem 3rem;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+
+        .signup-card h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #1E293B;
+            margin-bottom: 2.5rem;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .input-container input,
+        .input-container select {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            border-radius: 99px;
+            border: 2px solid #E2E8F0;
+            font-size: 1rem;
+            font-family: inherit;
+            box-sizing: border-box;
+            color: #1E293B;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .input-container input::placeholder {
+            color: #94A3B8;
+        }
+
+        .input-container input:focus,
+        .input-container select:focus {
+            border-color: #87DAF7;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(135, 218, 247, 0.1);
+        }
+
+        .input-container .toggle-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.25rem;
+            color: #94A3B8;
+            cursor: pointer;
+            width: 22px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #87DAF7;
+            color: white;
+            padding: 1.25rem;
+            border-radius: 99px;
+            border: none;
+            font-weight: 900;
+            font-size: 1.25rem;
+            cursor: pointer;
+            margin-top: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #6DCEF2;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(135, 218, 247, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            color: #64748B;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .footer a {
+            color: #0369A1;
+            text-decoration: none;
+            font-weight: 800;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="signup-card">
+        <h1>Create Account</h1>
+
+        <form id="signupForm">
+            <div class="form-group">
+                <label>Full Name</label>
+                <div class="input-container">
+                    <input type="text" id="fullName" placeholder="John Doe" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <div class="input-container">
+                    <input type="email" id="email" placeholder="Enter your email address" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-container">
+                    <input type="password" id="password" placeholder="Create a password" required>
+                    <i data-lucide="eye" class="toggle-icon"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <div class="input-container">
+                    <input type="password" id="confirmPassword" placeholder="Re-enter your password" required>
+                    <i data-lucide="eye" class="toggle-icon"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Location</label>
+                <div class="input-container">
+                    <select id="location" required>
+                        <option value="Anantapur">Anantapur</option>
+                        <option value="Chittoor">Chittoor</option>
+                        <option value="East Godavari">East Godavari</option>
+                        <option value="Guntur">Guntur</option>
+                        <option value="Krishna">Krishna</option>
+                        <option value="Kurnool">Kurnool</option>
+                        <option value="Prakasam">Prakasam</option>
+                        <option value="Srikakulam">Srikakulam</option>
+                        <option value="Nellore">Nellore</option>
+                        <option value="Visakhapatnam">Visakhapatnam</option>
+                        <option value="Vizianagaram">Vizianagaram</option>
+                        <option value="West Godavari">West Godavari</option>
+                        <option value="Kadapa">Kadapa</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">CREATE ACCOUNT</button>
+        </form>
+
+        <div class="footer">
+            Already have an account? <a href="role-selection.html">Sign In</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+        document.querySelectorAll('.toggle-icon').forEach(icon => {
+            icon.addEventListener('click', function () {
+                const input = this.previousElementSibling;
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    this.setAttribute('data-lucide', 'eye-off');
+                } else {
+                    input.type = 'password';
+                    this.setAttribute('data-lucide', 'eye');
+                }
+                lucide.createIcons();
+            });
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const pwd = document.getElementById('password').value;
+            const cpwd = document.getElementById('confirmPassword').value;
+            const locationVal = document.getElementById('location').value;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const role = urlParams.get('role') || 'Citizen';
+
+            if (pwd !== cpwd) {
+                hg.ui.showToast('Passwords do not match', 'error');
+                return;
+            }
+
+            // Strong validation (matches Conversation 73a1b147)
+            if (pwd.length < 8 || !/[!@#$%^&*(),.?":{}|<>]/.test(pwd)) {
+                hg.ui.showToast('Password must be 8+ characters with at least one special character', 'error');
+                return;
+            }
+
+            if (!email.endsWith('@gmail.com')) {
+                hg.ui.showToast('Please use a valid @gmail.com address', 'error');
+                return;
+            }
+
+            hg.ui.showToast('Creating your secure account...', 'info');
+
+            const userData = {
+                name: fullName,
+                email: email,
+                password: pwd,
+                location: locationVal,
+                role: role.toLowerCase() === 'healthworker' ? 'health_worker' : role.toLowerCase()
+            };
+
+            // Save to local storage to simulate a persistent user for demo purposes if API fails
+            const users = JSON.parse(localStorage.getItem('hg_mock_users') || '[]');
+            users.push(userData);
+            localStorage.setItem('hg_mock_users', JSON.stringify(users));
+
+            const response = await hg.api.register(userData);
+
+            hg.ui.showToast('Account created successfully!', 'success');
+            setTimeout(() => {
+                const targetLogin = role.toLowerCase() === 'healthworker' ? 'healthworker-login.html' :
+                    role.toLowerCase() === 'admin' ? 'admin-login.html' : 'citizen-login.html';
+                window.location.href = targetLogin;
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>
+
+</html>

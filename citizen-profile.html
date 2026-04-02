@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Profile Portal - HydroGuard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #1E293B;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 2rem;
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-radius: 20px;
+            color: #64748B;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #E0F2FE;
+            color: #0284C7;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 300px;
+            padding: 5rem 6rem;
+        }
+
+        .profile-container {
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+        }
+
+        .info-panel {
+            background: #009A7A;
+            color: white;
+            padding: 4rem;
+            border-radius: 48px;
+            box-shadow: 0 40px 100px rgba(0, 154, 122, 0.15);
+            text-align: center;
+        }
+
+        .avatar-glow {
+            width: 140px;
+            height: 140px;
+            background: #05453A;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 3rem;
+            font-size: 3.5rem;
+            font-weight: 950;
+            border: 8px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .field-list {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .field-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .field-item i {
+            color: #A0C8C3;
+            width: 20px;
+            margin-top: 5px;
+        }
+
+        .label {
+            font-size: 0.8rem;
+            font-weight: 900;
+            color: #A0C8C3;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .value {
+            font-size: 1.5rem;
+            font-weight: 950;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .action-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .action-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid #E2E8F0;
+            transition: all 0.3s;
+        }
+
+        .action-card:hover {
+            transform: scale(1.03);
+            border-color: #38BDF8;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+        }
+
+        .indicator-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        @media (max-width: 1024px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                width: 80px;
+                padding: 2rem 1rem;
+            }
+
+            .sidebar span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 4rem;">
+            <i data-lucide="droplets" style="width: 36px; height: 36px; color: #0EA5E9;"></i>
+            <span style="font-size: 1.5rem; font-weight: 900; color: #0F172A;">HydroGuard</span>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="citizen-dashboard.html" class="nav-link">
+                <i data-lucide="layout-dashboard"></i> <span>Overview</span>
+            </a>
+            <a href="water-check.html" class="nav-link">
+                <i data-lucide="search"></i> <span>Check Water</span>
+            </a>
+            <a href="report-issue.html" class="nav-link">
+                <i data-lucide="alert-circle"></i> <span>Report Issue</span>
+            </a>
+            <a href="sanitization-tips.html" class="nav-link">
+                <i data-lucide="shield-check"></i> <span>Health Tips</span>
+            </a>
+            <a href="citizen-profile.html" class="nav-link active">
+                <i data-lucide="user"></i> <span>My Profile</span>
+            </a>
+        </nav>
+
+        <a href="index.html" class="nav-link" style="margin-top: auto; color: #EF4444;">
+            <i data-lucide="log-out"></i> <span>Sign Out</span>
+        </a>
+    </aside>
+
+    <main class="main-content">
+        <header style="margin-bottom: 4rem;">
+            <h1 style="font-size: 3.5rem; font-weight: 950; letter-spacing: -2px; margin: 0;">Portal Identity</h1>
+            <p style="color: #64748B; font-weight: 600; font-size: 1.2rem; margin-top: 10px;">Security management for
+                your HydroGuard session.</p>
+        </header>
+
+        <div class="profile-container">
+            <div class="info-panel">
+                <div class="avatar-glow" id="avatarBox"><i data-lucide="user-plus"></i></div>
+                <div class="field-list">
+                    <div class="field-item">
+                        <i data-lucide="user"></i>
+                        <div>
+                            <span class="label">Full Name</span>
+                            <span class="value" id="profileName">Loading User...</span>
+                        </div>
+                    </div>
+                    <div class="field-item">
+                        <i data-lucide="mail"></i>
+                        <div>
+                            <span class="label">Email Contact</span>
+                            <span class="value" id="profileEmail">user@gmail.com</span>
+                        </div>
+                    </div>
+                    <div class="field-item">
+                        <i data-lucide="map-pin"></i>
+                        <div>
+                            <span class="label">District Boundary</span>
+                            <span class="value" id="profileLocation">Guntur Region</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-panel">
+                <a href="change-password.html" class="action-card">
+                    <div class="indicator-icon" style="background: #E0F2FE; color: #0EA5E9;"><i
+                            data-lucide="shield-lock"></i></div>
+                    <div style="flex: 1;">
+                        <h4 style="margin: 0; font-weight: 900;">Credential Update</h4>
+                        <p style="margin: 2px 0 0; color: #64748B; font-size: 0.85rem; font-weight: 500;">Renew your
+                            security certificates.</p>
+                    </div>
+                    <i data-lucide="chevron-right" style="color: #CBD5E1; width: 18px;"></i>
+                </a>
+
+                <div onclick="hg.session.logout()" class="action-card" style="cursor: pointer;">
+                    <div class="indicator-icon" style="background: #FEF2F2; color: #EF4444;"><i
+                            data-lucide="log-out"></i></div>
+                    <div style="flex: 1;">
+                        <h4 style="margin: 0; font-weight: 900; color: #EF4444;">Session Closure</h4>
+                        <p style="margin: 2px 0 0; color: #FCA5A5; font-size: 0.85rem; font-weight: 500;">Terminate
+                            current portal access.</p>
+                    </div>
+                    <i data-lucide="chevron-right" style="color: #FEE2E2; width: 18px;"></i>
+                </div>
+
+                <a href="delete-account.html" class="action-card">
+                    <div class="indicator-icon" style="background: #F1F5F9; color: #475569;"><i
+                            data-lucide="trash-2"></i></div>
+                    <div style="flex: 1;">
+                        <h4 style="margin: 0; font-weight: 900; color: #475569;">Data Deletion</h4>
+                        <p style="margin: 2px 0 0; color: #94A3B8; font-size: 0.85rem; font-weight: 500;">Permanently
+                            scrub your account trace.</p>
+                    </div>
+                    <i data-lucide="chevron-right" style="color: #E2E8F0; width: 18px;"></i>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            const user = hg.session.get();
+            if (user) {
+                document.getElementById('profileName').textContent = user.name || 'Anonymous User';
+                document.getElementById('profileEmail').textContent = user.email || 'guest@hydroguard.com';
+                document.getElementById('profileLocation').textContent = user.location || 'Sector 4';
+
+                if (user.name) {
+                    const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                    document.getElementById('avatarBox').textContent = initials.substring(0, 2);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
