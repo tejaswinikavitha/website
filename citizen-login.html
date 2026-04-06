@@ -4,239 +4,820 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HydroGuard - Citizen Login</title>
-    <link rel="stylesheet" href="style.css">
+    <title>HydroGuard – Citizen Sign In</title>
+    <meta name="description"
+        content="Sign in as a Citizen to HydroGuard — monitor water quality and report issues in your area.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body {
-            background: #000 url('dark_hero_background_1774192398621.png') no-repeat center right;
-            background-size: cover;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Outfit', sans-serif;
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
             margin: 0;
-            padding: 2rem;
-            position: relative;
+            padding: 0;
         }
 
-        body::before {
-            content: '';
-            position: absolute;
+        html,
+        body {
+            height: 100%;
+            font-family: 'Outfit', sans-serif;
+            background: #F8FAFC;
+        }
+
+        /* ── NAV ── */
+        .site-nav {
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 0;
+            right: 0;
+            height: 64px;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3rem;
+            z-index: 100;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
         }
 
-        .login-card {
-            position: relative;
-            z-index: 1;
-            background: white;
-            /* ... rest same ... */
-        }
-
-        .back-link {
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
-            color: white;
-            text-decoration: none;
+        .nav-brand {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-weight: 600;
-            font-size: 1.1rem;
+            text-decoration: none;
         }
 
-        .login-card {
-            background: white;
-            width: 100%;
-            max-width: 440px;
-            border-radius: 60px;
-            padding: 4rem 3rem;
-            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.2);
-            text-align: center;
+        .nav-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .brand-header {
-            margin-bottom: 2.5rem;
+        .nav-icon svg {
+            width: 18px;
+            height: 18px;
+            color: #fff;
         }
 
-        .brand-header h1 {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #1E293B;
-            margin: 0;
-            letter-spacing: -2px;
-        }
-
-        .brand-header p {
-            color: #64748B;
-            font-weight: 700;
-            margin-top: 5px;
-            font-size: 1rem;
-        }
-
-        .role-badge {
-            background: linear-gradient(90deg, #A855F7 0%, #EC4899 100%);
-            color: white;
-            padding: 1.25rem;
-            border-radius: 20px;
-            margin-bottom: 2.5rem;
-            font-weight: 700;
-        }
-
-        .role-badge span {
-            display: block;
-            font-size: 0.8rem;
-            opacity: 0.9;
-            margin-bottom: 4px;
-        }
-
-        .role-badge h3 {
-            margin: 0;
-            font-size: 1.4rem;
-            font-weight: 900;
-        }
-
-        .form-group {
-            text-align: left;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
+        .nav-brand-name {
+            font-size: 1.25rem;
             font-weight: 800;
             color: #1E293B;
-            margin-bottom: 0.75rem;
-            font-size: 0.95rem;
+            letter-spacing: -0.3px;
         }
 
-        .input-container {
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #64748B;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #1E293B;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            text-decoration: none;
+            color: #64748B;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover {
+            color: #7C3AED;
+        }
+
+        .nav-back svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ── LAYOUT ── */
+        .page-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+            padding-top: 64px;
+        }
+
+        /* ── LEFT HERO PANEL ── */
+        .hero-panel {
+            background: linear-gradient(155deg, #1E0A3C 0%, #3B1582 45%, #7C3AED 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5rem 4.5rem;
+            overflow: hidden;
+        }
+
+        .hero-panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('dark_hero_background_1774192398621.png') no-repeat center/cover;
+            opacity: 0.12;
+            mix-blend-mode: luminosity;
+        }
+
+        .hero-blob-1 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.28) 0%, transparent 70%);
+            top: -150px;
+            right: -150px;
+        }
+
+        .hero-blob-2 {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+            bottom: -80px;
+            left: -80px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 460px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.4rem 1rem;
+            border-radius: 99px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .hero-tag-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #A78BFA;
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.07;
+            letter-spacing: -1.5px;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-content h1 span {
+            background: linear-gradient(90deg, #C4B5FD, #F9A8D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 1rem;
+            line-height: 1.75;
+            margin-bottom: 3rem;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.92rem;
+            font-weight: 500;
+        }
+
+        .feat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feat-icon svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .fi-a {
+            background: rgba(167, 139, 250, 0.2);
+            color: #C4B5FD;
+        }
+
+        .fi-b {
+            background: rgba(249, 168, 212, 0.2);
+            color: #F9A8D4;
+        }
+
+        .fi-c {
+            background: rgba(110, 231, 183, 0.2);
+            color: #6EE7B7;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .stat-col {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .stat-num {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-lbl {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* ── RIGHT FORM PANEL ── */
+        .form-panel {
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 5rem;
+            overflow-y: auto;
+        }
+
+        .form-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(124, 58, 237, 0.07);
+            border: 1px solid rgba(124, 58, 237, 0.15);
+            color: #7C3AED;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.38rem 0.9rem;
+            border-radius: 99px;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-eyebrow svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .form-panel h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0F172A;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-panel .form-sub {
+            color: #64748B;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .form-sub a {
+            color: #7C3AED;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .form-sub a:hover {
+            text-decoration: underline;
+        }
+
+        /* Fields */
+        .field {
+            margin-bottom: 1.35rem;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.87rem;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-row {
             position: relative;
         }
 
-        .input-container i {
+        .input-row .ico {
             position: absolute;
-            left: 1.25rem;
-            top: 1.25rem;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
             color: #94A3B8;
-            width: 20px;
+            width: 17px;
+            height: 17px;
+            pointer-events: none;
         }
 
-        .input-container input {
+        .input-row input {
             width: 100%;
-            padding: 1.25rem 1.5rem 1.25rem 3.5rem;
-            border-radius: 99px;
-            border: 2px solid #E2E8F0;
-            font-size: 1rem;
+            height: 50px;
+            padding: 0 3rem 0 2.85rem;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 10px;
+            font-size: 0.95rem;
             font-family: inherit;
-            box-sizing: border-box;
-            transition: all 0.3s;
+            color: #1E293B;
+            background: #F8FAFC;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
         }
 
-        .input-container input:focus {
-            border-color: #EC4899;
+        .input-row input::placeholder {
+            color: #CBD5E1;
+        }
+
+        .input-row input:focus {
             outline: none;
-            box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.1);
+            background: #fff;
+            border-color: #7C3AED;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
         }
 
-        .login-btn {
-            width: 100%;
-            background: linear-gradient(90deg, #A855F7 0%, #EC4899 100%);
-            color: white;
-            padding: 1.25rem;
-            border-radius: 99px;
+        .pw-btn {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
             border: none;
-            font-weight: 900;
-            font-size: 1.25rem;
             cursor: pointer;
-            margin-top: 2rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(236, 72, 153, 0.3);
-        }
-
-        .extra-links {
-            margin-top: 1rem;
+            color: #CBD5E1;
             display: flex;
-            justify-content: flex-end;
+            align-items: center;
+            padding: 0;
+            transition: color 0.2s;
         }
 
-        .extra-links a {
-            color: #7E22CE;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .signup-footer {
-            margin-top: 3rem;
+        .pw-btn:hover {
             color: #64748B;
+        }
+
+        .pw-btn svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.75rem;
+        }
+
+        .check-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+        }
+
+        .check-label input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #7C3AED;
+            cursor: pointer;
+        }
+
+        .link-forgot {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #7C3AED;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .link-forgot:hover {
+            opacity: 0.7;
+        }
+
+        .btn-submit {
+            width: 100%;
+            height: 52px;
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 800;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0);
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover::after {
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.35);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .btn-submit.loading .btn-lbl {
+            display: none;
+        }
+
+        .btn-submit.loading .spinner {
+            display: block;
+        }
+
+        .form-footer {
+            margin-top: 1.75rem;
+            text-align: center;
+            color: #94A3B8;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-footer a {
+            font-weight: 700;
+            color: #7C3AED;
+            text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .trust-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            padding-top: 1.75rem;
+            border-top: 1px solid #F1F5F9;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #CBD5E1;
+            font-size: 0.77rem;
             font-weight: 600;
         }
 
-        .signup-footer a {
-            color: #7E22CE;
-            text-decoration: none;
-            font-weight: 800;
+        .trust-item svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 0.9rem 1.4rem;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(10px);
+            z-index: 999;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+            background: #1E293B;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #toast.success {
+            background: linear-gradient(135deg, #059669, #3B82F6);
+        }
+
+        #toast.error {
+            background: linear-gradient(135deg, #DC2626, #EC4899);
+        }
+
+        #toast.info {
+            background: linear-gradient(135deg, #7C3AED, #6366f1);
+        }
+
+        @media (max-width: 900px) {
+            .page-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-panel {
+                display: none;
+            }
+
+            .form-panel {
+                padding: 3rem 2rem;
+            }
+
+            .site-nav {
+                padding: 0 1.5rem;
+            }
         }
     </style>
 </head>
 
 <body>
-
-    <div class="login-card">
-        <div class="brand-header">
-            <h1>HydroGuard</h1>
-            <p>Health Monitor</p>
+    <!-- NAV -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z" />
+                    <circle cx="12" cy="9" r="2.5" />
+                </svg>
+            </div>
+            <span class="nav-brand-name">HydroGuard</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="water-check.html">Water Status</a>
+            <a href="disease-monitoring.html">Disease Monitor</a>
         </div>
+        <a href="role-selection.html" class="nav-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M19 12H5" />
+                <path d="M12 19l-7-7 7-7" />
+            </svg>
+            Change Role
+        </a>
+    </nav>
 
-        <div class="role-badge">
-            <span>Logging in as</span>
-            <h3>Citizen</h3>
-        </div>
-
-        <form id="loginForm">
-            <div class="form-group">
-                <label>Email Address</label>
-                <div class="input-container">
-                    <i data-lucide="mail"></i>
-                    <input type="email" placeholder="Enter your email" required>
+    <div class="page-grid">
+        <!-- LEFT HERO -->
+        <aside class="hero-panel">
+            <div class="hero-blob-1"></div>
+            <div class="hero-blob-2"></div>
+            <div class="hero-content">
+                <div class="hero-tag"><span class="hero-tag-dot"></span>Citizen Portal</div>
+                <h1>Your community's health<br>is in <span>your hands</span></h1>
+                <p>Report water quality issues, track local alerts, and stay informed about public health conditions in
+                    your district — from any device.</p>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feat-icon fi-a">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z" />
+                                <circle cx="12" cy="9" r="2.5" />
+                            </svg>
+                        </div>
+                        Submit and track water quality reports
+                    </div>
+                    <div class="feature-item">
+                        <div class="feat-icon fi-b">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                                <line x1="6" y1="1" x2="6" y2="4" />
+                                <line x1="10" y1="1" x2="10" y2="4" />
+                                <line x1="14" y1="1" x2="14" y2="4" />
+                            </svg>
+                        </div>
+                        View sanitisation tips and safety guides
+                    </div>
+                    <div class="feature-item">
+                        <div class="feat-icon fi-c">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                        </div>
+                        Real-time updates from your local health office
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-col"><span class="stat-num">12K+</span><span class="stat-lbl">Reports Filed</span>
+                    </div>
+                    <div class="stat-col"><span class="stat-num">23</span><span class="stat-lbl">Districts</span></div>
+                    <div class="stat-col"><span class="stat-num">98%</span><span class="stat-lbl">Uptime</span></div>
                 </div>
             </div>
+        </aside>
 
-            <div class="form-group">
-                <label>Password</label>
-                <div class="input-container">
-                    <i data-lucide="lock"></i>
-                    <input type="password" placeholder="Enter your password" required>
+        <!-- RIGHT FORM -->
+        <main class="form-panel">
+            <div class="form-eyebrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M20 21a8 8 0 1 0-16 0" />
+                </svg>
+                Citizen Login
+            </div>
+            <h2>Welcome back</h2>
+            <p class="form-sub">Don't have an account? <a href="create-account.html?role=Citizen">Create one free →</a>
+            </p>
+
+            <form id="loginForm" novalidate>
+                <div class="field">
+                    <label for="emailInput">Email Address</label>
+                    <div class="input-row">
+                        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="16" x="2" y="4" rx="2" />
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                        </svg>
+                        <input type="email" id="emailInput" placeholder="you@example.com" required autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="passwordInput">Password</label>
+                    <div class="input-row">
+                        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        <input type="password" id="passwordInput" placeholder="••••••••••" required
+                            autocomplete="current-password">
+                        <button type="button" class="pw-btn" id="pwToggle" aria-label="Toggle password">
+                            <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label class="check-label">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="forgot-password.html" class="link-forgot">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-submit" id="loginBtn">
+                    <span class="btn-lbl">Sign In as Citizen</span>
+                    <div class="spinner"></div>
+                </button>
+            </form>
+
+            <div class="form-footer">
+                Not a citizen? <a href="role-selection.html">Switch your role →</a>
+            </div>
+
+            <div class="trust-bar">
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                    Secure & encrypted
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                    Government certified
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    24/7 availability
                 </div>
             </div>
-
-            <div class="extra-links">
-                <a href="forgot-password.html">Forgot Password?</a>
-            </div>
-
-            <button type="submit" class="login-btn">Login</button>
-        </form>
-
-        <div class="signup-footer">
-            Don't have an account? <a href="create-account.html?role=Citizen">Create Account</a>
-        </div>
+        </main>
     </div>
+
+    <div id="toast"></div>
 
     <script src="script.js"></script>
     <script>
         lucide.createIcons();
+
+        // Password toggle
+        document.getElementById('pwToggle').addEventListener('click', function () {
+            const inp = document.getElementById('passwordInput');
+            const icon = document.getElementById('eyeIcon');
+            if (inp.type === 'password') {
+                inp.type = 'text';
+                icon.innerHTML = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+            } else {
+                inp.type = 'password';
+                icon.innerHTML = `<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>`;
+            }
+        });
+
+        function showToast(msg, type) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = `show ${type}`;
+            clearTimeout(t._t);
+            t._t = setTimeout(() => t.className = '', 3200);
+        }
+
         document.getElementById('loginForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
@@ -246,14 +827,15 @@
             const password = passwordInput.value;
 
             if (!email || !password) {
-                hg.ui.showToast('Please enter both email and password', 'error');
+                showToast('Please enter both email and password', 'error');
                 return;
             }
 
-            hg.ui.showToast('Authenticating...', 'info');
+            const btn = document.getElementById('loginBtn');
+            btn.classList.add('loading');
+            showToast('Authenticating...', 'info');
 
             try {
-                // For demo: Check mock users first to get their location
                 const mockUsers = JSON.parse(localStorage.getItem('hg_mock_users') || '[]');
                 const foundUser = mockUsers.find(u => u.email === email && u.role === 'citizen');
 
@@ -262,23 +844,22 @@
                 if (response.status === 'success' || response.success || foundUser) {
                     const user = response.user || foundUser;
                     if (user && (user.role === 'citizen' || user.role === 'Citizen')) {
-                        // Ensure location exists for district filtering
                         if (!user.location) user.location = 'Guntur';
                         hg.session.save(user);
-                        hg.ui.showToast('Login successful!', 'success');
-                        setTimeout(() => {
-                            location.href = 'citizen-dashboard.html';
-                        }, 1000);
+                        showToast('Login successful!', 'success');
+                        setTimeout(() => { location.href = 'citizen-dashboard.html'; }, 1000);
                     } else {
-                        hg.ui.showToast('Unauthorized role. Please use the correct login portal.', 'error');
+                        showToast('Unauthorized role. Please use the correct login portal.', 'error');
                     }
                 } else {
-                    hg.ui.showToast(response.message || 'Login failed', 'error');
+                    showToast(response.message || 'Login failed', 'error');
                 }
             } catch (error) {
                 console.error(error);
-                hg.ui.showToast('Connection error. Please check your network and try again.', 'error');
+                showToast('Connection error. Please check your network and try again.', 'error');
             }
+
+            btn.classList.remove('loading');
         });
     </script>
 </body>

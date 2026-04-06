@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In – HydroGuard Health Monitor</title>
+    <meta name="description"
+        content="Sign in to HydroGuard — the intelligent water quality and public health monitoring platform.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: 'Outfit', sans-serif;
+            background: #F0F4F8;
+            color: #1E293B;
+        }
+
+        /* ══════════════════════════════════
+           TOP NAVIGATION BAR
+        ══════════════════════════════════ */
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 68px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3rem;
+            z-index: 100;
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-logo-icon svg {
+            width: 20px;
+            height: 20px;
+            color: #fff;
+        }
+
+        .nav-logo-text {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #1E293B;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #64748B;
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #1E293B;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            color: #fff !important;
+            padding: 0.55rem 1.4rem;
+            border-radius: 8px;
+            font-weight: 700 !important;
+            font-size: 0.88rem !important;
+            transition: opacity 0.2s, transform 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            color: #fff !important;
+        }
+
+        /* ══════════════════════════════════
+           PAGE LAYOUT — TWO COLUMNS
+        ══════════════════════════════════ */
+        .page-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+            padding-top: 68px;
+            /* nav height */
+        }
+
+        /* ── LEFT PANEL ── */
+        .left-panel {
+            background: linear-gradient(160deg, #0F172A 0%, #1E1B4B 45%, #312E81 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5rem 4rem;
+            overflow: hidden;
+        }
+
+        /* Decorative background shapes */
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.25) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+        }
+
+        .left-panel::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.2) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+        }
+
+        /* Hero background image overlay */
+        .left-bg-img {
+            position: absolute;
+            inset: 0;
+            background: url('dark_hero_background_1774192398621.png') no-repeat center center / cover;
+            opacity: 0.2;
+            mix-blend-mode: luminosity;
+        }
+
+        .left-content {
+            position: relative;
+            z-index: 2;
+            max-width: 480px;
+        }
+
+        .left-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.45rem 1rem;
+            border-radius: 99px;
+            margin-bottom: 2rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .left-badge span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #A78BFA;
+            display: inline-block;
+        }
+
+        .left-content h1 {
+            font-size: 3.4rem;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            margin-bottom: 1.25rem;
+        }
+
+        .left-content h1 em {
+            font-style: normal;
+            background: linear-gradient(90deg, #A78BFA, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .left-content p {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 1.05rem;
+            font-weight: 400;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        /* Feature list */
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .feature-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .fi-blue {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93C5FD;
+        }
+
+        .fi-purple {
+            background: rgba(167, 139, 250, 0.2);
+            color: #C4B5FD;
+        }
+
+        .fi-pink {
+            background: rgba(236, 72, 153, 0.2);
+            color: #F9A8D4;
+        }
+
+        .fi-green {
+            background: rgba(52, 211, 153, 0.2);
+            color: #6EE7B7;
+        }
+
+        /* Stats ribbon */
+        .stats-ribbon {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3.5rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .stat-number {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.45);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* ── RIGHT PANEL ── */
+        .right-panel {
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 5rem;
+            overflow-y: auto;
+        }
+
+        .form-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-header h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0F172A;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            color: #64748B;
+            font-size: 0.97rem;
+            font-weight: 400;
+        }
+
+        .form-header p a {
+            color: #7C3AED;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .form-header p a:hover {
+            text-decoration: underline;
+        }
+
+        /* Role selector */
+        .role-selector-label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.75rem;
+        }
+
+        .role-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 2rem;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 14px;
+            padding: 6px;
+        }
+
+        .role-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 0.85rem 0.5rem;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #94A3B8;
+            transition: all 0.2s ease;
+        }
+
+        .role-btn svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.2s;
+        }
+
+        .role-btn:hover {
+            color: #475569;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .role-btn.active {
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .role-btn.active[data-role="citizen"] {
+            color: #7C3AED;
+        }
+
+        .role-btn.active[data-role="healthworker"] {
+            color: #059669;
+        }
+
+        .role-btn.active[data-role="admin"] {
+            color: #334155;
+        }
+
+        /* Role context pill */
+        .role-context {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.8rem 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 1.75rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .role-context svg {
+            width: 17px;
+            height: 17px;
+            flex-shrink: 0;
+        }
+
+        .rc-citizen {
+            background: rgba(124, 58, 237, 0.06);
+            color: #7C3AED;
+            border: 1px solid rgba(124, 58, 237, 0.15);
+        }
+
+        .rc-healthworker {
+            background: rgba(5, 150, 105, 0.06);
+            color: #059669;
+            border: 1px solid rgba(5, 150, 105, 0.15);
+        }
+
+        .rc-admin {
+            background: rgba(51, 65, 85, 0.06);
+            color: #334155;
+            border: 1px solid rgba(51, 65, 85, 0.15);
+        }
+
+        /* Divider */
+        .form-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+            color: #CBD5E1;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .form-divider::before,
+        .form-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #E2E8F0;
+        }
+
+        /* Field groups */
+        .field-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .field-group label {
+            display: block;
+            font-size: 0.87rem;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .field-wrap {
+            position: relative;
+        }
+
+        .field-wrap .f-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94A3B8;
+            width: 18px;
+            height: 18px;
+            pointer-events: none;
+        }
+
+        .field-wrap input {
+            width: 100%;
+            height: 50px;
+            padding: 0 1rem 0 2.85rem;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            color: #1E293B;
+            background: #FAFAFA;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+
+        .field-wrap input::placeholder {
+            color: #CBD5E1;
+        }
+
+        .field-wrap input:focus {
+            outline: none;
+            background: #fff;
+        }
+
+        body[data-role="citizen"] .field-wrap input:focus {
+            border-color: #7C3AED;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        body[data-role="healthworker"] .field-wrap input:focus {
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+
+        body[data-role="admin"] .field-wrap input:focus {
+            border-color: #475569;
+            box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.1);
+        }
+
+        .pw-eye {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #CBD5E1;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            transition: color 0.2s;
+        }
+
+        .pw-eye:hover {
+            color: #64748B;
+        }
+
+        .pw-eye svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        /* Remember + Forgot row */
+        .form-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.75rem;
+        }
+
+        .remember-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #475569;
+            user-select: none;
+        }
+
+        .remember-check input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            accent-color: #7C3AED;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .forgot-link {
+            font-size: 0.88rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .forgot-link:hover {
+            opacity: 0.7;
+        }
+
+        body[data-role="citizen"] .forgot-link {
+            color: #7C3AED;
+        }
+
+        body[data-role="healthworker"] .forgot-link {
+            color: #059669;
+        }
+
+        body[data-role="admin"] .forgot-link {
+            color: #334155;
+        }
+
+        /* Submit button */
+        .submit-btn {
+            width: 100%;
+            height: 52px;
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 800;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s;
+            letter-spacing: 0.01em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0);
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover::after {
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        body[data-role="citizen"] .submit-btn {
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3);
+        }
+
+        body[data-role="healthworker"] .submit-btn {
+            background: linear-gradient(135deg, #059669, #3B82F6);
+            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.3);
+        }
+
+        body[data-role="admin"] .submit-btn {
+            background: linear-gradient(135deg, #1E293B, #475569);
+            box-shadow: 0 8px 24px rgba(30, 41, 59, 0.3);
+        }
+
+        .btn-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.35);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .submit-btn.loading .btn-txt {
+            display: none;
+        }
+
+        .submit-btn.loading .btn-spinner {
+            display: block;
+        }
+
+        /* Signup / no-account footer */
+        .form-footer {
+            margin-top: 1.75rem;
+            text-align: center;
+            color: #94A3B8;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-footer a {
+            font-weight: 700;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .form-footer a:hover {
+            opacity: 0.75;
+        }
+
+        body[data-role="citizen"] .form-footer a {
+            color: #7C3AED;
+        }
+
+        body[data-role="healthworker"] .form-footer a {
+            color: #059669;
+        }
+
+        body[data-role="admin"] .form-footer a {
+            color: #334155;
+        }
+
+        /* Trust badges */
+        .trust-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            padding-top: 1.75rem;
+            border-top: 1px solid #F1F5F9;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #CBD5E1;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .trust-item svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #1E293B;
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(12px);
+            z-index: 999;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 320px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #059669, #3B82F6);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #DC2626, #EC4899);
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, #7C3AED, #6366f1);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .right-panel {
+                padding: 3rem 3.5rem;
+            }
+
+            .left-content h1 {
+                font-size: 2.6rem;
+            }
+        }
+
+        @media (max-width: 820px) {
+            .page-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .left-panel {
+                display: none;
+            }
+
+            .right-panel {
+                padding: 3rem 2rem;
+            }
+
+            .site-nav {
+                padding: 0 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body data-role="citizen">
+
+    <!-- ═══════ TOP NAVIGATION ═══════ -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z" />
+                    <circle cx="12" cy="9" r="2.5" />
+                </svg>
+            </div>
+            <span class="nav-logo-text">HydroGuard</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="water-check.html">Water Status</a>
+            <a href="disease-monitoring.html">Disease Monitor</a>
+            <a href="role-selection.html">Portals</a>
+            <a href="create-account.html?role=Citizen" class="nav-cta">Create Account</a>
+        </div>
+    </nav>
+
+    <!-- ═══════ PAGE WRAPPER ═══════ -->
+    <div class="page-wrapper">
+
+        <!-- ── LEFT BRANDING PANEL ── -->
+        <section class="left-panel">
+            <div class="left-bg-img"></div>
+            <div class="left-content">
+
+                <div class="left-badge">
+                    <span></span>
+                    Trusted by 50,000+ Users Across Andhra Pradesh
+                </div>
+
+                <h1>Monitor.<br><em>Protect.</em><br>Respond.</h1>
+
+                <p>HydroGuard gives citizens, health workers, and administrators real-time visibility into water quality
+                    and public health — all in one integrated platform.</p>
+
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-icon fi-blue">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z" />
+                                <circle cx="12" cy="9" r="2.5" />
+                            </svg>
+                        </div>
+                        Real-time water quality reports & alerts
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon fi-purple">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" />
+                            </svg>
+                        </div>
+                        Health worker case & patient management
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon fi-green">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </div>
+                        Live disease outbreak monitoring by district
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon fi-pink">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <path d="M3 9h18M9 21V9" />
+                            </svg>
+                        </div>
+                        Admin dashboards & region-level oversight
+                    </div>
+                </div>
+
+                <div class="stats-ribbon">
+                    <div class="stat-item">
+                        <span class="stat-number">12K+</span>
+                        <span class="stat-label">Reports Filed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Uptime</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">23</span>
+                        <span class="stat-label">Districts Covered</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── RIGHT FORM PANEL ── -->
+        <section class="right-panel">
+
+            <div class="form-header">
+                <h2>Welcome back</h2>
+                <p>New to HydroGuard? <a href="create-account.html?role=Citizen" id="headerSignupLink">Create a free
+                        account</a></p>
+            </div>
+
+            <!-- Role Selector -->
+            <p class="role-selector-label">Select your role</p>
+            <div class="role-selector">
+                <button class="role-btn active" data-role="citizen" onclick="setRole('citizen')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M20 21a8 8 0 1 0-16 0" />
+                    </svg>
+                    Citizen
+                </button>
+                <button class="role-btn" data-role="healthworker" onclick="setRole('healthworker')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                    Health Worker
+                </button>
+                <button class="role-btn" data-role="admin" onclick="setRole('admin')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                    Administrator
+                </button>
+            </div>
+
+            <!-- Role context pill -->
+            <div class="role-context rc-citizen" id="roleContext">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M20 21a8 8 0 1 0-16 0" />
+                </svg>
+                <span id="roleContextText">Signing in as <strong>Citizen</strong> — access water reports, submit issues
+                    &amp; view local alerts.</span>
+            </div>
+
+            <div class="form-divider">Sign in with your account</div>
+
+            <!-- Login form -->
+            <form id="loginForm" novalidate>
+
+                <div class="field-group">
+                    <label for="emailInput">Email Address</label>
+                    <div class="field-wrap">
+                        <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="16" x="2" y="4" rx="2" />
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                        </svg>
+                        <input type="email" id="emailInput" placeholder="you@example.com" required autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label for="passwordInput">Password</label>
+                    <div class="field-wrap">
+                        <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        <input type="password" id="passwordInput" placeholder="••••••••••" required
+                            autocomplete="current-password">
+                        <button type="button" class="pw-eye" id="pwToggle" aria-label="Toggle password">
+                            <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label class="remember-check">
+                        <input type="checkbox" id="rememberMe"> Remember me
+                    </label>
+                    <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="btn-txt">Sign In</span>
+                    <div class="btn-spinner"></div>
+                </button>
+            </form>
+
+            <div class="form-footer" id="formFooter">
+                Don't have an account? <a href="create-account.html?role=Citizen" id="signupLink">Create one free →</a>
+            </div>
+
+            <!-- Trust badges -->
+            <div class="trust-row">
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                    256-bit SSL encryption
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                    Government certified
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    24/7 availability
+                </div>
+            </div>
+
+        </section>
+    </div><!-- /.page-wrapper -->
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+    <script>
+        /* ─── Role data ─── */
+        const ROLES = {
+            citizen: {
+                contextClass: 'rc-citizen',
+                contextIcon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>`,
+                contextText: 'Signing in as <strong>Citizen</strong> — access water reports, submit issues &amp; view local alerts.',
+                signupHref: 'create-account.html?role=Citizen',
+                showSignup: true,
+                dashboard: 'citizen-dashboard.html',
+                apiRole: 'citizen',
+            },
+            healthworker: {
+                contextClass: 'rc-healthworker',
+                contextIcon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+                contextText: 'Signing in as <strong>Health Worker</strong> — manage patient cases, notifications &amp; field reports.',
+                signupHref: 'create-account.html?role=HealthWorker',
+                showSignup: true,
+                dashboard: 'healthworker-dashboard.html',
+                apiRole: 'health_worker',
+            },
+            admin: {
+                contextClass: 'rc-admin',
+                contextIcon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+                contextText: 'Signing in as <strong>Administrator</strong> — full system oversight, user management &amp; analytics.',
+                signupHref: '#',
+                showSignup: false,
+                dashboard: 'admin-dashboard.html',
+                apiRole: 'admin',
+            }
+        };
+
+        let currentRole = 'citizen';
+
+        function setRole(role) {
+            currentRole = role;
+            const cfg = ROLES[role];
+
+            document.body.dataset.role = role;
+
+            // Update tabs
+            document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector(`.role-btn[data-role="${role}"]`).classList.add('active');
+
+            // Update context pill
+            const ctx = document.getElementById('roleContext');
+            ctx.className = `role-context ${cfg.contextClass}`;
+            ctx.innerHTML = cfg.contextIcon + `<span id="roleContextText">${cfg.contextText}</span>`;
+
+            // Update signup links
+            const footer = document.getElementById('formFooter');
+            if (cfg.showSignup) {
+                footer.style.display = '';
+                document.getElementById('signupLink').href = cfg.signupHref;
+            } else {
+                footer.style.display = 'none';
+            }
+        }
+
+        /* ─── Password toggle ─── */
+        document.getElementById('pwToggle').addEventListener('click', function () {
+            const inp = document.getElementById('passwordInput');
+            const icon = document.getElementById('eyeIcon');
+            if (inp.type === 'password') {
+                inp.type = 'text';
+                icon.innerHTML = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+            } else {
+                inp.type = 'password';
+                icon.innerHTML = `<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>`;
+            }
+        });
+
+        /* ─── Toast ─── */
+        function showToast(msg, type = 'info') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = `toast ${type} show`;
+            clearTimeout(t._timer);
+            t._timer = setTimeout(() => t.classList.remove('show'), 3200);
+        }
+
+        /* ─── Form submit ─── */
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('emailInput').value.trim();
+            const password = document.getElementById('passwordInput').value;
+            const btn = document.getElementById('submitBtn');
+            const cfg = ROLES[currentRole];
+
+            if (!email || !password) {
+                showToast('Please enter your email and password.', 'error');
+                return;
+            }
+
+            btn.classList.add('loading');
+            showToast('Verifying your credentials…', 'info');
+
+            try {
+                if (typeof hg !== 'undefined' && hg.api) {
+                    let response;
+
+                    if (currentRole === 'admin') {
+                        response = await hg.api.adminLogin({ email, password });
+                    } else {
+                        response = await hg.api.login({ email, password });
+                    }
+
+                    if (response && (response.status === 'success' || response.success)) {
+                        const user = response.user || response.admin;
+                        if (user) {
+                            if (!user.location) user.location = 'Guntur';
+                            if (currentRole === 'admin') user.role = 'admin';
+                            hg.session.save(user);
+                            showToast('Signed in successfully! Redirecting…', 'success');
+                            btn.classList.remove('loading');
+                            setTimeout(() => { location.href = cfg.dashboard; }, 900);
+                            return;
+                        }
+                    }
+                    showToast(response.message || 'Invalid credentials. Please try again.', 'error');
+                } else {
+                    // No hg API available, redirect to role-specific page
+                    await new Promise(r => setTimeout(r, 600));
+                    showToast('Redirecting…', 'info');
+                    const redirectMap = {
+                        citizen: 'citizen-login.html',
+                        healthworker: 'healthworker-login.html',
+                        admin: 'admin-login.html'
+                    };
+                    setTimeout(() => { location.href = redirectMap[currentRole]; }, 700);
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Connection error. Please try again.', 'error');
+            }
+
+            btn.classList.remove('loading');
+        });
+
+        // Initialise
+        setRole('citizen');
+    </script>
+</body>
+
+</html>
